@@ -49,6 +49,11 @@ pääsyoikeuksia.
     - Tällöin Heroku CLI -komentorivityökalun kaikki aiemmat käyttäjät joutuvat
       kirjautumaan uudelleen sisään.
 
+  - Avaa Applications-välilehti
+    - [ ] Tarkista, että Third-party Services on tyhjä.
+    - [ ] Tarkista, että Authorized Services on tyhjä.
+    - [ ] Tarkista, että API clients on tyhjä.
+
 
 ## Kaksivaiheinen tunnistautuminen (Two factor authentication)
 
@@ -94,19 +99,21 @@ Varmistetaan, ettei kenelläkään muulla ole pääsyä two factor authin edelly
 Seuraavat toimenpiteet suoritetaan pääsihteerin toimesta pääsihteerin tietokoneelta.
 
 - [ ] Tietokonetta käyttää ATK-vastaava, joka ei tunne Heroku-tunnuksen salasanaa.  
-- [ ] Varmistu, että olet omalla tietokoneellasi.  
-- [ ] Avaa selain private browsing modeen
-- [ ] Avaa Heroku.com
-- Avaa Settings > Two factor authentication.
-- [ ] Valitse `Disable` kohdassa "Two factor authentication is enabled"
-- [ ] Varmistu ettei koneen äärellä ole ylimääräisiä henkilöitä, jotka voivat ottaa QR-koodin tai varmistuskoodit itsellensä talteen.
-- [ ] Valitse "Set Up Two-factor Authentication"
-  - [ ] Asenna pääsihteerin puhelimeen Google Authenticator
-  - [ ] Skannaa Google Authenticatorilla Herokun antama two factor authin koodien siemenenä toimiva QR-koodi.
-  - [ ] Syötä koodigeneraattorin antama koodi kohdassa "Verify your app"
-  - [ ] Paina Enable two factor authentication
+- [ ] Varmistu, että olet omalla tietokoneellasi.
+- [ ] Avaa selain private browsing -tilaan.
+
+- Avaa Avaa Heroku.com Settings > Two factor authentication.
+  - [ ] Valitse `Disable` kohdassa "Two factor authentication is enabled"
+  - [ ] Varmistu ettei koneen äärellä ole ylimääräisiä henkilöitä, jotka voivat ottaa QR-koodin tai varmistuskoodit itsellensä talteen.
+  - Valitse "Set Up Two-factor Authentication"
+    - [ ] Asenna pääsihteerin puhelimeen Google Authenticator
+    - [ ] Skannaa Google Authenticatorilla Herokun antama two factor authin koodien siemenenä toimiva QR-koodi.
+    - [ ] Syötä koodigeneraattorin antama koodi kohdassa "Verify your app"
+    - [ ] Paina Enable two factor authentication
+
 - Two factor auth on nyt enabled.
-  - [ ] Ennen Recovery Options -vaiheen suorittamista, varmista että muut kuin pääsihteeri eivät näe tietokoneen ruutua.
+  - Ennen Recovery Options -vaiheen suorittamista,
+    varmista että muut kuin pääsihteeri eivät näe tietokoneen ruutua.
   - Paina Set up recovery options:
     - [ ] Syötä pääsihteerin numero SMS recoveryyn
     - [ ] Syötä tekstiviestinä saapunut vahvistuskoodi
