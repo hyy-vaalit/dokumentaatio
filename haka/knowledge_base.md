@@ -63,6 +63,10 @@ https://wiki.eduuni.fi/display/CSCHAKA/Metadata
 https://confluence.csc.fi/display/HAKA/SAML-profiili
 
 [Sertifikaatin vaihtaminen](https://confluence.csc.fi/display/HAKA/SAML-varmenteen+vaihtaminen)
+* "SAML-palvelun (SP) tai tunnistuslähteen (IdP) varmenteen vaihtaminen vaatii
+  kaksi metadatan julkaisusykliä. Hakassa normaali metadatan uudistamissykli on
+  n. 2 viikkoa, joten varaa varmenteen vaihtamiseen aikaa vähintään kuukausi.
+* [Varmennekäytäntö](https://wiki.eduuni.fi/pages/viewpage.action?pageId=27297727)
 
 [SAML-varmenteet](https://confluence.csc.fi/display/HAKA/Usein+kysytyt+kysymykset#Useinkysytytkysymykset-Varmenteet)
 * Hakassa käytettävän SAML-viestien vaihdon suojaamiseen tarkoitetun varmenteen
