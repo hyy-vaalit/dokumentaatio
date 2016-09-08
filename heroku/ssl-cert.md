@@ -32,6 +32,14 @@ cat vaalit.hyy.fi.crt intermediate.crt > vaalit.hyy.fi.combined.pem
 
 ## Lisää sertifikaatti Herokuun
 
+[Herokun ohjeet](https://devcenter.heroku.com/articles/ssl-beta)
+
+Ota SNI SSL käyttöön:
+```bash
+Heroku labs:enable http-sni -a PALVELUT
+```
+
+Lisää uusi sertifikaatti:
 ```bash
  heroku _certs:add vaalit.hyy.fi.combined.pem server.key -a PALVELU
  ```
@@ -48,3 +56,20 @@ Sertifikaatin tiedot:
 ```bash
 heroku _certs:info
 ```
+
+## Cheatsheet
+
+* Generate a self signed cert (eg. for Haka)
+  `openssl req -x509 -nodes -newkey rsa:2048 -keyout key.pem -out cert.pem -days 3650`
+
+* List certificate contents:
+  `openssl x509 -in cert.pem -text -noout`
+
+*  Create a certificate signing request (CSR):
+  `openssl req -new -sha256 -key my.key -out my.csr`
+
+* List CSR contents:
+  `openssl req -in mycsr.csr -noout -text`
+
+* Display key details:
+  `openssl rsa -in private.key -text -noout`

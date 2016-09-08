@@ -18,7 +18,7 @@ Palvelut raportoivat virhetilanteet Rollbariin.
 Palvelut lähettävät login Logglyyn.
 
 - Luodaan Heroku Drain:
-  - Mene https://hyy.loggly.com/sources/setup/heroku-app-setup
+  - Avaa [Logglyn hallintapaneeli](https://hyy.loggly.com/sources/setup/heroku-app-setup)
   - Etsi copypastettava komento, esimerkiksi:
     `heroku drains:add https://logs-01.loggly.com/bulk/SEKRIT/tag/heroku --app APP_NAME`
 
@@ -31,10 +31,7 @@ Palvelut lähettävät login Logglyyn.
 - Lisää git remote voting-apiin:
   - `git remote add production https://git.heroku.com/hyy-vaalit.git`
 
-- Ensimmäinen deploy git-historian kohdasta DEPLOY_TAG:
-  - `git push production DEPLOY_TAG`
-
-- Aseta ympäristömuuttujat:
+- Aseta ympäristömuuttujat ennen deployta:
   - `cp .env.example .env.deploy`
   - Muokkaa halutut arvot `.env.deploy`
   - Lue asetukset: `bin/read_env_for_heroku_config.sh .env.deploy`
@@ -44,6 +41,13 @@ Palvelut lähettävät login Logglyyn.
   - Huomioi talviaikaan siirtyminen, joka todennäköisesti tapahtuu vaalien aikana.
     Aseta äänestämisen alkamisajankohtaan aikavyöhykkeen offsetiksi +0300
     ja loppumisajankohdan offsetiksi +0200.
+
+- Aja Deploy:
+  - `git push production master`
+  - masterin on syytä vastata aina tuotannossa olevaa versiota. Jos deployaat
+    tietyn tagin, käytä `git push production TAG_NAME:master`. Herokun remote
+    branchin pitää olla aina `master`.
+
 
 - Luo tietokannan skeema:
   - `heroku run rake db:schema:load -r production`  
