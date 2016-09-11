@@ -48,13 +48,9 @@ control](dual-control.md) -periaatteen suhteen. Kaksi atk-vastaavaa yhdessä
 suorittavat deployn ja poistavat lopuksi itseltänsä deployn ajaksi annetut
 ylläpidon pääsyoikeudet.
 
-Ennen deployn suorittamista, varmistetaan vertaisarvioiden git-historiasta
-muutokset aiempaan turvalliseksi todettuun versioon nähden. Git-historiaa voi
-tutkia esimerkiksi seuraavasti:
-- `git diff --stat FIRST..LAST`
-- `git log -p FIRST..LAST`
-- Tässä `FIRST` ja `LAST` voivat olla tageja, brancheja tai SHA-tunnisteita.
-
+Ennen deployn suorittamista,
+[varmistetaan vertaisarvioiden git-historiasta](../git/changes.md)
+muutokset aiempaan turvalliseksi todettuun versioon nähden.
 
 ## Heroku: Ensimmäinen deploy
 
@@ -78,7 +74,7 @@ Suoritetaan palvelun ensimmäinen deploy Herokuun.
     offsetiksi +0300 ja loppumisajankohdan offsetiksi +0200.
 
 - Suorita deploy:
-  - `bin/deploy production`
+  - `bin/deploy production master`
   - Palvelun masterin on syytä vastata aina tuotannossa olevaa versiota.
 
 - Luo tietokannan skeema:
@@ -102,6 +98,19 @@ Suoritetaan palvelun ensimmäinen deploy Herokuun.
   sellaiseksi, että se voidaan suorittaa ilman konsolin avaamista. Konsolin saa
   tarvittaessa auki:
   - `heroku run console -r production`
+
+
+## Asennetun ohjelmistoversion tarkastaminen
+
+Kun paikallisessa git-repossa on remotena sekä Github että Heroku,
+näkee asennetun ohjelmistoversion tagien lisäksi myös remoten branchista:
+  - `git fetch -a`
+  - `git log remotes/production/master`
+  - tai käyttäen työkalua kuten `tig`, GitX tai SourceTree.
+
+Esimerkiksi tässä kohdassa Githubin masterissa on uusi commit, joka ei ole
+mukana Herokun `qa`- tai `production`-ympäristön deployssa:
+![Track Git remotes](../git/track-remotes.jpg)
 
 
 ## Lopuksi

@@ -22,6 +22,7 @@ vaalien aikana käsiksi Heroku.com-hallintapaneeliin tai
 
 ## Sisällysluettelo
 
+* [Git-versionhallinta](git/README.md)
 * [Heroku](heroku/README.md)
 * [CSC Haka](haka/README.md)
 * [Amazon AWS](aws/README.md)
