@@ -1,4 +1,4 @@
-# Amazon AWS -ympäristö
+# Amazon AWS -ympäristön määrittäminen
 
 Jokaiselle palvelinympäristölle (tuotanto, qa, staging) on omat asetuksensa.
 

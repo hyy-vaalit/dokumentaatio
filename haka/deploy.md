@@ -1,4 +1,4 @@
-#
+# Identiteetintarjoajan määrittäminen
 
 Voting API:iin esikonfiguroidaan halutun identiteetintarjoajan (IdP) tiedot.
 Tällä tavoin ainoastaan halutun IdP:n käyttäjätunnuksilla pääsee kirjautumaan

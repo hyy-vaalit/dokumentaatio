@@ -2,6 +2,7 @@
 # SSL-sertifikaatin lisääminen Herokuun
 
 Herokussa on kaksi eri lisäpalvelua SSL-suojaukselle:
+
 1. Perinteinen lisämaksullinen [SSL Endpoint](https://devcenter.heroku.com/articles/ssl-endpoint)
    * Tämä add-on antaa jokaiselle SSL-endpointille oman IP-osoitteen.
 2. Kesällä 2016 betaan tullut ilmainen [Heroku SSL (Beta)](https://devcenter.heroku.com/articles/ssl-beta)
