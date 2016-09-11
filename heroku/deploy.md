@@ -1,19 +1,13 @@
 # Palvelun deploy
 
 Palvelun deploy tarkoittaa palvelun koodin, ympäristön ja asetusten luomista
-palveluntarjoajalle.
-
-Deployn suorittavat atk-vastaavat yhdessä noudattaen [Dual
-Control](dual-control.md) -periaatetta. Deploytä voivat niin halutessaan valvoa
-esimerkiksi pääsihteeri tai joku Keskusvaalilautakunnan jäsenistä. Tämän
-dokumentaation tehtävänä on varmistaa, että valvovat henkilöt voivat pysyä
-selvillä siitä, mitä atk-vastaavat juuri nyt ovat tekemässä.
+palveluntarjoajalle. Deployn suorittavat atk-vastaavat yhdessä noudattaen [Dual
+Control](dual-control.md) -periaatetta.
 
 Ensimmäinen deploy kannattaa harjoitella tuotantoa vastaavassa
-Staging-ympäristössä, jolloin jokainen vaihe voidaan varmistaa huolettomasti.
-Staging-ympäristöön voidaan luoda myös testikäyttäjiä, joilla vaalin vaiheet
-voidaan kuivaharjoitella vielä kertaalleen juuri ennen tuotantoon siirtymistä.
-
+Staging-ympäristössä. Staging-ympäristöön voidaan luoda testikäyttäjiä,
+joilla vaalin vaiheet voidaan kuivaharjoitella vielä kertaalleen juuri ennen
+tuotantoon siirtymistä.
 
 
 ## Valmistelut: Rollbar.com
@@ -80,20 +74,19 @@ Suoritetaan palvelun ensimmäinen deploy Herokuun.
     - Aseta ympäristömuuttujat Herokuun:
       - `heroku config:set KEY_1="VALUE_1" [..] KEY_N="VALUE_N" -r production`
   - Huomioi talviaikaan siirtyminen, joka todennäköisesti tapahtuu vaalien aikana.
-    Esimerkiksi: Aseta äänestämisen alkamisajankohtaan aikavyöhykkeen offsetiksi +0300
-    ja loppumisajankohdan offsetiksi +0200.
+    Esimerkiksi: Aseta äänestämisen alkamisajankohtaan aikavyöhykkeen
+    offsetiksi +0300 ja loppumisajankohdan offsetiksi +0200.
 
 - Suorita deploy:
-  - `bin/deploy`
-  - Palvelun masterin on syytä vastata aina tuotannossa olevaa versiota. Jos deployaat
-    tietyn tagin, käytä `git push production TAG_NAME:master`. Herokun remote
-    branch on aina `master`.
+  - `bin/deploy production`
+  - Palvelun masterin on syytä vastata aina tuotannossa olevaa versiota.
 
 - Luo tietokannan skeema:
   - `heroku run rake db:schema:load -r production`  
 
 - Syötä palvelun seed-data:
-  - `heroku run rake db:seed:TASK`, jossa vaadittu `TASK` on kuvattu kunkin palvelun README:ssa.
+  - `heroku run rake db:seed:TASK`,
+    jossa vaadittu `TASK` on kuvattu kunkin palvelun README:ssa.
 
 - Siivoa jäljet:
   - git status
@@ -102,13 +95,18 @@ Suoritetaan palvelun ensimmäinen deploy Herokuun.
 - Login saa näkyville:
   - `heroku logs --tail -r production`
 
+- Herokun ympäristömuuttujat saa näkyville:
+  - `heroku config -r production`
+
 - Jos joudut käyttämään ylläpitokonsolia, jokin on mennyt pieleen. Korjaa deploy
   sellaiseksi, että se voidaan suorittaa ilman konsolin avaamista. Konsolin saa
   tarvittaessa auki:
   - `heroku run console -r production`
 
+
 ## Lopuksi
 
-- Heroku.com > Settings:
-  - [ ] Maintenance Mode: Off
-  - komentoriviltä: `heroku maintenance:off -a PALVELU`
+- Ota maintenance mode pois päältä.
+  - Mene Heroku.com > Settings:
+    - [ ] Maintenance Mode: Off
+  - Komentoriviltä: `heroku maintenance:off -a PALVELU`
