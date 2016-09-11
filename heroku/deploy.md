@@ -1,5 +1,21 @@
 # Palvelun deploy
 
+Palvelun deploy tarkoittaa palvelun koodin, ympäristön ja asetusten luomista
+palveluntarjoajalle.
+
+Deployn suorittavat atk-vastaavat yhdessä noudattaen [Dual
+Control](dual-control.md) -periaatetta. Deploytä voivat niin halutessaan valvoa
+esimerkiksi pääsihteeri tai joku Keskusvaalilautakunnan jäsenistä. Tämän
+dokumentaation tehtävänä on varmistaa, että valvovat henkilöt voivat pysyä
+selvillä siitä, mitä atk-vastaavat juuri nyt ovat tekemässä.
+
+Ensimmäinen deploy kannattaa harjoitella tuotantoa vastaavassa
+Staging-ympäristössä, jolloin jokainen vaihe voidaan varmistaa huolettomasti.
+Staging-ympäristöön voidaan luoda myös testikäyttäjiä, joilla vaalin vaiheet
+voidaan kuivaharjoitella vielä kertaalleen juuri ennen tuotantoon siirtymistä.
+
+
+
 ## Valmistelut: Rollbar.com
 
 Palvelut raportoivat virhetilanteet Rollbariin.
@@ -13,6 +29,7 @@ Palvelut raportoivat virhetilanteet Rollbariin.
     `heroku addons:create deployhooks:http --url="https://api.rollbar.com/api/1/deploy/?access_token=SEKRIT&environment=production"`
   - Vaihda parametrin lopusta ympäristön nimi (esim "qa")
 
+
 ## Valmistelut: Loggly
 
 Palvelut lähettävät login Logglyyn.
@@ -23,34 +40,60 @@ Palvelut lähettävät login Logglyyn.
     `heroku drains:add https://logs-01.loggly.com/bulk/SEKRIT/tag/heroku --app APP_NAME`
 
 
-## Heroku
+## Valmistelut: asennettavan ohjelmistoversion varmistaminen
+
+Palvelun git `master` branchin on syytä vastata tuotannossa olevaa versiota.
+Jokainen deploy luo uuden git tagin, jolloin git historiasta pystyy näkemään
+tuotannon deploy-historian.
+
+Palvelun deploy suoritetaan komennolla `bin/deploy`, joka luo tarvittavat git
+tagit.
+
+Deploy on suoritettava siten, ettei se ole ristiriidassa [dual
+control](dual-control.md) -periaatteen suhteen. Kaksi atk-vastaavaa yhdessä
+suorittavat deployn ja poistavat lopuksi itseltänsä deployn ajaksi annetut
+ylläpidon pääsyoikeudet.
+
+Ennen deployn suorittamista, varmistetaan vertaisarvioiden git-historiasta
+muutokset aiempaan turvalliseksi todettuun versioon nähden. Git-historiaa voi
+tutkia esimerkiksi seuraavasti:
+- `git diff --stat FIRST..LAST`
+- `git log -p FIRST..LAST`
+- Tässä `FIRST` ja `LAST` voivat olla tageja, brancheja tai SHA-tunnisteita.
+
+
+## Heroku: Ensimmäinen deploy
+
+Suoritetaan palvelun ensimmäinen deploy Herokuun.
 
 - Avaa Heroku.com > Settings.
   - Hanki Git URL palvelun sivulta Settings > Info
 
-- Lisää git remote voting-apiin:
-  - `git remote add production https://git.heroku.com/hyy-vaalit.git`
+- Lisää Herokun git remote:
+  - `git remote add production https://git.heroku.com/PALVELU.git`
 
 - Aseta ympäristömuuttujat ennen deployta:
   - `cp .env.example .env.deploy`
   - Muokkaa halutut arvot `.env.deploy`
-  - Lue asetukset: `bin/read_env_for_heroku_config.sh .env.deploy`
+  - Lue asetukset: `bin/env_for_heroku_config.sh .env.deploy`
     - skripti tuottaa komennon `heroku config KEY=VALUE`
     - Aseta ympäristömuuttujat Herokuun:
-      - `heroku config:set X=x, Y=y -r production`
+      - `heroku config:set KEY_1="VALUE_1" [..] KEY_N="VALUE_N" -r production`
   - Huomioi talviaikaan siirtyminen, joka todennäköisesti tapahtuu vaalien aikana.
-    Aseta äänestämisen alkamisajankohtaan aikavyöhykkeen offsetiksi +0300
+    Esimerkiksi: Aseta äänestämisen alkamisajankohtaan aikavyöhykkeen offsetiksi +0300
     ja loppumisajankohdan offsetiksi +0200.
 
-- Aja Deploy:
-  - `git push production master`
-  - masterin on syytä vastata aina tuotannossa olevaa versiota. Jos deployaat
+- Suorita deploy:
+  - `bin/deploy`
+  - Palvelun masterin on syytä vastata aina tuotannossa olevaa versiota. Jos deployaat
     tietyn tagin, käytä `git push production TAG_NAME:master`. Herokun remote
-    branchin pitää olla aina `master`.
-
+    branch on aina `master`.
 
 - Luo tietokannan skeema:
   - `heroku run rake db:schema:load -r production`  
+
+- Syötä palvelun seed-data:
+  - `heroku run rake db:seed:TASK`, jossa vaadittu `TASK` on kuvattu kunkin palvelun README:ssa.
 
 - Siivoa jäljet:
   - git status
@@ -59,6 +102,10 @@ Palvelut lähettävät login Logglyyn.
 - Login saa näkyville:
   - `heroku logs --tail -r production`
 
+- Jos joudut käyttämään ylläpitokonsolia, jokin on mennyt pieleen. Korjaa deploy
+  sellaiseksi, että se voidaan suorittaa ilman konsolin avaamista. Konsolin saa
+  tarvittaessa auki:
+  - `heroku run console -r production`
 
 ## Lopuksi
 
