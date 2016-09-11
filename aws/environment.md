@@ -4,12 +4,12 @@ Jokaiselle palvelinympäristölle (tuotanto, qa, staging) on omat asetuksensa.
 
 Hallintapaneeli löytyy osoitteesta https://hyy-vaalit.signin.aws.amazon.com/console
 
-Seuraavat stepit on tehtävä jokaiseen S3-bucketiin, jota käytetään (tuotanto, staging, koe):
+Seuraavat stepit on tehtävä jokaiseen käytettävään S3-bucketiin.
 
 * Luo S3:een uusi hakemisto, johon kirjoitetaan vaalitulos.
   - Avaa Services > S3 > BUCKET
   - BUCKET: vaalitulos.hyy.fi, vaalitulostin-qa, vaalitulostin-staging
-  - [ ] Luo buckettiin vuosiluvulle uusi hakemisto.
+  - [ ] Luo buckettiin vuosiluvulle uusi hakemisto.
 
 * Anna kirjoitusoikeus edellä luotuun hakemistoon.
   - Avaa Services > IAM > Users

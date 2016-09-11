@@ -16,5 +16,5 @@ käyttää tietolähteenään laskentapalvelun bucketiin tallettamaa JSON-dataa.
 
 ## Sisällysluettelo
 
-* [AWS-ympäristön määrittäminen](environment.rb)
+* [AWS-ympäristön määrittäminen](environment.md)
 * [Vaalien lopuksi](removal.md)

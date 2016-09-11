@@ -34,7 +34,7 @@ Sisäänkirjautumissivun osoite:
 
 `<SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://testidp.funet.fi/idp/profile/SAML2/Redirect/SSO"/>`
 
-=> `SAML_IDP_SSO_TARGET_URL`="https://testidp.funet.fi/idp/profile/SAML2/Redirect/SSO"`
+=> `SAML_IDP_SSO_TARGET_URL="https://testidp.funet.fi/idp/profile/SAML2/Redirect/SSO"`
 
 
 Identiteetintarjoajan sertifikaatti:

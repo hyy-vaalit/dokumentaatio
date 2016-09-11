@@ -1,10 +1,15 @@
 # Heroku-ympäristön pystyttäminen
 
 Luodaan ja konfiguroidaan Herokuun vaaleissa käytettävä palvelu.
-Palveluna voidaan käyttää edellisissä vaaleissa luotua palvelua.
 Heroku-ympäristöä pystytettäessä kriittiset kohdat, kuten pääsyoikeudet ja
 kaksivaiheinen tunnistautuminen, luodaan varmuuden vuoksi
 uudelleen.
+
+Herokun appsia, johon dynot kytketään, ei tarvitse luoda uudelleen vaan voidaan
+käyttää edellisiin vaaleihin luotua. Edellisen vaalin Heroku-appsia käyttämällä
+esimerkiksi domain-endpointteja ei tarvitse luoda uudelleen eikä Sendgrid laita
+uutta palvelua karenssiin. Ympäristön pystyttäminen aloitetaan varmistamalla,
+että luotava Heroku-appsi on tyhjä eikä siihen ole ylimääräisiä pääsyoikeuksia.
 
 
 ## Dual Control -periaatteen noudattaminen
@@ -57,74 +62,79 @@ pääsyoikeuksia.
 
 ## Kaksivaiheinen tunnistautuminen (Two factor authentication)
 
-#TODO: Poista pääsiheeri
-
 Herokun kaksivaiheista tunnistautumista käytetään varmistamaan, että kukaan
-yksittäinen ylläpitäjä ei pääse sisään Herokun hallintakonsoliin. Vaalien
-ATK-vastaavien hallussa on ainoastaan Heroku-tunnuksen salasana. Kaksivaiheisen
-tunnistautumisen generoitu osa on vain sellaisella henkilöllä, jolla ei ole
-tiedossaan Heroku.comin hallintatunnuksen pysyvää salasanaa (esimerkiksi
-pääsihteerillä).
+ylläpitäjä ei yksin pääse sisään Herokun hallintakonsoliin. Vaalissa on kaksi
+ATK-vastaavaa, joista toisen hallussa on Heroku-tunnuksen salasana  ja toisella
+henkilöllä on kaksivaiheisen tunnistautumisen koodit.
 
 Kaksivaiheinen tunnistautuminen suojaa ainoastaan Heroku.comin webissä olevan
 hallintakonsolin. Jos kaksivaiheisen tunnistautumisen jälkeen lisätään
 pääsyoikeuksia tai SSH-avaimia, kaikki lisätyt pääsyoikeudet on lopuksi
-poistettava.
+poistettava. Molempien ylläpitäjien on pysyttävä yhdessä samassa fyysisessä
+tilassa niin pitkään kuin ylläpitotoimet kestävät.
 
 Viimeistään tuotannon asennusvaiheessa koodigeneraattorin syötekoodi luodaan
-uusiksi, jotta varmistutaan siitä, ettei kenelläkään muulla kuin esim.
-pääsihteerillä ole pääsyä kaksivaiheisen tunnistautumisen koodeihin.
+uusiksi, jotta varmistutaan siitä, ettei kenelläkään muulla ole pääsyä
+kaksivaiheisen tunnistautumisen koodeihin.
 
 Aina, kun kaksivaiheisen tunnistautumisen koodi syötetään, siitä täytyy tehdä
 merkintä vaalipöytäkirjaan. Merkinnästä on käytävä ilmi:
-- mihin kellonaikaan kirjauduttiin sisään
-- mitä kirjautumisen aikana tehtiin
-- mihin kellonaikaan kirjauduttiin ulos
-- miten varmistuttiin, ettei kaksivaiheisella tunnistautumisella avattu
-- selainsessio jäänyt auki tai selaimen välimuistiin
+- Mihin kellonaikaan kirjauduttiin sisään.
+- Mitä kirjautumisen aikana tehtiin.
+- Mihin kellonaikaan kirjauduttiin ulos.
+- Miten varmistuttiin, ettei kaksivaiheisella tunnistautumisella avattu
+  selainsessio jäänyt auki tai selaimen välimuistiin.
+- Todetaan, että molemmat ATK-vastaavat olivat samassa fyysisessä tilassa
+  koko sen ajan, kun ylläpito-oikeudet olivat voimassa.  
 
-### Overview:
-- Asennetaan Google Authenticator koodigeneraattori pääsihteerin puhelimeen.
-- Käytetään SMS Recoveryssä pääsihteerin puhelinnumeroa.
-- SMS Recoveryssä ei saa käyttää muun kuin pääsihteerin puhelinnumeroa.
-- Pääsihteeri ei saa tuntea Heroku.comin hallintasalasanaa.
-- ATK-vastaavat eivät saa nähdä koodigeneraatorin asennusvaiheessa näkyvää QR-koodia.
-- ATK-vastaavat eivät saa nähdä tulostettavia Recovery Codes -koodeja.
+
+### Yleiskuvaus:
+
+- Asennetaan Google Authenticator koodigeneraattori.
+- Käytetään SMS Recoveryssä sen henkilön puhelinnumeroa, jolla on
+  koodigeneraattori. Tämä henkilö ei saa tuntea pääkäyttäjän salasanaa.
+- SMS Recoveryssä ei saa käyttää sen henkliön puhelinnumeroa, joka tuntee
+  pääkäyttäjän salasanan.
+- Salasanan tunteva henkilö ei saa nähdä koodigeneraatorin asennusvaiheessa
+  näkyvää QR-koodia tai tulostettavia Recovery Codes -koodeja.
 
 
 ### Checklist:
 
-Varmistetaan, ettei kenelläkään muulla ole pääsyä two factor authin edellyttämiin koodeihin luomalla two factor authin syöte uudelleen.
+Varmistetaan, ettei kenelläkään muulla ole pääsyä kaksivaiheisen
+tunnistautumisen koodeihin luomalla koodigeneraattorin syöte uudelleen.
 
-Seuraavat toimenpiteet suoritetaan pääsihteerin toimesta pääsihteerin tietokoneelta.
+Seuraavat toimenpiteet suoritetaan sen ATK-vastaavan toimesta, joka ei tunne
+pääkäyttäjän salasanaa. Henkilö, joka tuntee salasanan, ei saa nähdä jäljempänä
+syntyvää QR-koodia tai palautuskoodeja.
 
 - [ ] Tietokonetta käyttää ATK-vastaava, joka ei tunne Heroku-tunnuksen salasanaa.  
 - [ ] Varmistu, että olet omalla tietokoneellasi.
-- [ ] Avaa selain private browsing -tilaan.
+- [ ] Avaa selain private browsing -tilaan.
 
 - Avaa Avaa Heroku.com Settings > Two factor authentication.
-  - [ ] Valitse `Disable` kohdassa "Two factor authentication is enabled"
+  - [ ] Valitse `Disable` kohdassa "Two factor authentication is enabled"
   - [ ] Varmistu ettei koneen äärellä ole ylimääräisiä henkilöitä, jotka voivat ottaa QR-koodin tai varmistuskoodit itsellensä talteen.
   - Valitse "Set Up Two-factor Authentication"
-    - [ ] Asenna pääsihteerin puhelimeen Google Authenticator
+    - [ ] Asenna puhelimeesi Google Authenticator
     - [ ] Skannaa Google Authenticatorilla Herokun antama two factor authin koodien siemenenä toimiva QR-koodi.
     - [ ] Syötä koodigeneraattorin antama koodi kohdassa "Verify your app"
     - [ ] Paina Enable two factor authentication
 
 - Two factor auth on nyt enabled.
-  - Ennen Recovery Options -vaiheen suorittamista,
-    varmista että muut kuin pääsihteeri eivät näe tietokoneen ruutua.
+  - Ennen Recovery Options -vaiheen suorittamista, varmista että muut eivät
+    näe tietokoneen ruutua.
   - Paina Set up recovery options:
-    - [ ] Syötä pääsihteerin numero SMS recoveryyn
+    - [ ] Syötä numerosi SMS recoveryyn
     - [ ] Syötä tekstiviestinä saapunut vahvistuskoodi
-    - *Tärkeä*: SMS recovery saa olla vain sellaisella henkilöllä, joka ei tunne ensisijaista salasanaa.
+    - SMS recovery saa olla vain sellaisella henkilöllä, joka ei tunne ensisijaista salasanaa.
     - Ota talteen tekstimuodossa olevat palautuskoodit (Recovery Codes).
-      - [ ] Tulosta koodit paperille
+      - [ ] Tulosta koodit paperille tai 1Passwordiin
       - [ ] Talleta paperi esimerkiksi kassakaappiin, tai muuhun turvalliseen paikkaan.
-    - [ ] Varmistu, että kukaan muu ei näe palautuskoodeja eikä koodigeneraattorin syötteenä toiminutta QR-koodia.
+    - [ ] Varmistu, että kukaan muu ei nähnyt palautuskoodeja eikä koodigeneraattorin syötteenä toiminutta QR-koodia.
     - [ ] Varmistu, ettei tulostetuista palautuskoodeista syntynyt tiedostoa esimerkiksi Downloads-hakemistoon.
 - [ ] Tarkista, että sivulla lukee: Two factor authentication is enabled
-- [ ] Tarkista, että backup phone number sisältää ainoastaan pääsihteerin puhelinnumeron.
+- [ ] Tarkista, että backup phone number sisältää ainoastaan oman puhelinnumerosi.
 - [ ] Sulje selain. Private browsing moden ansiosta selain tyhjentää sulkemisen yhteydessä historiansa ja välimuistinsa.
 - Tarkista, että asetukset ovat kunnossa:
   - [ ] Avaa uusi selainikkuna private browsing modeen
@@ -150,11 +160,11 @@ Luodaan vaalipalvelulle Heroku-ympäristön perusasetukset.
       - NEWRELIC_*
     - Poista muut ympäristömuuttujat.
   - Kohta SSL Certificate
-    [ ] Tarkista, että SSL-sertifikaatin voimassaoloaika riittää vähintään vaalien keston ajan.
+    - [ ] Tarkista, että SSL-sertifikaatin voimassaoloaika riittää vähintään vaalien keston ajan.
   - Kohta Domains
-    [ ] Heroku domain hyy-vaalit.herokuapp.com
-    [ ] Custom domains: vaalit.hyy.fi (vaalit.hyy.fi.herokudns.com)
-    [ ] Ei muita domaineja
+    - [ ] Heroku domain hyy-vaalit.herokuapp.com
+    - [ ] Custom domains: vaalit.hyy.fi (vaalit.hyy.fi.herokudns.com)
+    - [ ] Ei muita domaineja
 
 - Avaa Resources
   - Lisää AddOnit:
