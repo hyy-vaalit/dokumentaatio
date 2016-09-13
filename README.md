@@ -26,6 +26,7 @@ vaalien aikana käsiksi Heroku.com-hallintapaneeliin tai
 * [Heroku](heroku/README.md)
 * [CSC Haka](haka/README.md)
 * [Amazon AWS](aws/README.md)
+* [Vaalit](elections/README.md)
 
 
 ## Muokkaajalle ohjeeksi:
