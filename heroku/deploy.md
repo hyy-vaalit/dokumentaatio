@@ -101,6 +101,8 @@ Suoritetaan palvelun ensimmäinen deploy Herokuun.
   tarvittaessa auki:
   - `heroku run console -r production`
 
+- Logi deployn ja ympäristömuuttujien historiasta:
+  - `heroku releases -r production`
 
 ## Lopuksi
 

@@ -28,3 +28,8 @@ tietokanta on ensin poistettava ja sen jälkeen luotava tyhjästä uudelleen.
       support-pyyntönä karanteeinin poistaminen. Pahimmillaan karanteeni
       viivästyttää sähköpostin lähetystä jopa 12 tunnilla (koettu
       hallintovaaleissa syksyllä 2015).
+
+- Luo viimeiselle deploy-tagille tagi, josta näkee seuraavissa vaaleissa, mikä
+  oli viimeinen tuotannossa ollut versio. Esimerkiksi `vuosiluku-final`.
+  - `git tag 2016-final && git push --tags`
+  - Muista pushata tagit.
