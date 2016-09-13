@@ -7,7 +7,9 @@ Control](dual-control.md) -periaatetta.
 Ensimmäinen deploy kannattaa harjoitella tuotantoa vastaavassa
 Staging-ympäristössä. Staging-ympäristöön voidaan luoda testikäyttäjiä,
 joilla vaalin vaiheet voidaan kuivaharjoitella vielä kertaalleen juuri ennen
-tuotantoon siirtymistä.
+tuotantoon siirtymistä. Staging-ympäristö kannattaa pystyttää samalla tavalla
+kuin tuotantoympäristö. Tällöin myös [ympäristön pystyttäminen](environment.md)
+voidaan kuivaharjoitella.
 
 
 ## Valmistelut: Rollbar.com
@@ -21,7 +23,7 @@ Palvelut raportoivat virhetilanteet Rollbariin.
   - Valitse "Heroku"
   - Etsi copypastettava komento, esimerkiksi:
     `heroku addons:create deployhooks:http --url="https://api.rollbar.com/api/1/deploy/?access_token=SEKRIT&environment=production"`
-  - Vaihda parametrin lopusta ympäristön nimi (esim "qa")
+  - Vaihda parametrin lopusta ympäristön nimi (esim `qa`)
 
 
 ## Valmistelut: Loggly
@@ -31,7 +33,7 @@ Palvelut lähettävät login Logglyyn.
 - Luodaan Heroku Drain:
   - Avaa [Logglyn hallintapaneeli](https://hyy.loggly.com/sources/setup/heroku-app-setup)
   - Etsi copypastettava komento, esimerkiksi:
-    `heroku drains:add https://logs-01.loggly.com/bulk/SEKRIT/tag/heroku --app APP_NAME`
+    `heroku drains:add https://logs-01.loggly.com/bulk/SEKRIT/tag/heroku -a PALVELU`
 
 
 ## Valmistelut: asennettavan ohjelmistoversion varmistaminen
@@ -85,8 +87,8 @@ Suoritetaan palvelun ensimmäinen deploy Herokuun.
     jossa vaadittu `TASK` on kuvattu kunkin palvelun README:ssa.
 
 - Siivoa jäljet:
-  - git status
-  - rm .env.deploy
+  - `git status`
+  - `rm .env.deploy`
 
 - Login saa näkyville:
   - `heroku logs --tail -r production`
@@ -100,22 +102,11 @@ Suoritetaan palvelun ensimmäinen deploy Herokuun.
   - `heroku run console -r production`
 
 
-## Asennetun ohjelmistoversion tarkastaminen
-
-Kun paikallisessa git-repossa on remotena sekä Github että Heroku,
-näkee asennetun ohjelmistoversion tagien lisäksi myös remoten branchista:
-  - `git fetch -a`
-  - `git log remotes/production/master`
-  - tai käyttäen työkalua kuten `tig`, GitX tai SourceTree.
-
-Esimerkiksi tässä kohdassa Githubin masterissa on uusi commit, joka ei ole
-mukana Herokun `qa`- tai `production`-ympäristön deployssa:
-![Track Git remotes](../git/track-remotes.jpg)
-
-
 ## Lopuksi
 
 - Ota maintenance mode pois päältä.
   - Mene Heroku.com > Settings:
     - [ ] Maintenance Mode: Off
   - Komentoriviltä: `heroku maintenance:off -a PALVELU`
+- Poista ylimääräiset pääsyoikeudet.
+- Allekirjoita vaalipöytäkirja.

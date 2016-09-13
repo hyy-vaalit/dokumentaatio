@@ -20,9 +20,13 @@ tilaa nykyhetkeen.
 
 ## Herokuun deployatun version jäljitys
 
-Kun olet lisännyt git remoteksi Herokun, näet git logista mikä kohta
-git-historiaa on tällä hetkellä deployattu:
-  - `git remote add production heroku-url`
-  - `git fetch -a`
-  - katso missä kohtaa `production` menee:
-    ![Track Git remotes](../git/track-remotes.jpg)
+Kun paikallisessa git-repossa on remotena sekä Github että Heroku, näkee
+git-logista, mikä kohta git-historiaa on tällä hetkellä deployattu:
+- `git remote add production heroku-url`
+- `git fetch -a`
+- `git log remotes/production/master`
+- tai käytä työkalua kuten `tig`, GitX tai SourceTree.
+
+Esimerkiksi tässä kohdassa Githubin masterissa `origin/master` on uusi commit,
+joka ei ole mukana Herokun `qa` tai `production` -ympäristön deployssa:
+  ![Track Git remotes](../git/track-remotes.jpg)

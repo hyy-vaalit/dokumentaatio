@@ -1,25 +1,26 @@
 # Heroku: Vaalien lopuksi
 
-Vaalien päätyttyä Heroku-palveluun liitetty tietokanta poistetaan.
-Ehdokastietojärjestelmä ja vaalituloksen laskentapalvelu kytketään pois käytöstä.
-Äänestyspalvelu vaalit.hyy.fi voidaan jättää eloon, mutta tällöin tietokanta on
-ensin poistettava ja sen jälkeen luotava tyhjästä uudelleen. Äänestyspalvelu
-näyttää vaalien jälkeen infosivun ja linkin vaalitulokseen.
+Vaalien päätyttyä jokaiseen Heroku-palveluun liitetty tietokanta poistetaan.
+Ehdokastietojärjestelmä ja vaalituloksen laskentapalvelu kytketään pois
+käytöstä. Äänestyspalvelu vaalit.hyy.fi voidaan jättää eloon, mutta tällöin
+tietokanta on ensin poistettava ja sen jälkeen luotava tyhjästä uudelleen.
+Äänestyspalvelu näyttää vaalien jälkeen infosivun ja linkin vaalitulokseen.
 
 
 ## Heroku
 
 - Poista jokaisen palvelun tietokanta
-  - [ ] `heroku pg:reset DATABASE --app APP_NAME`
+  - [ ] `heroku pg:reset DATABASE -a PALVELU`
 
 - Poista kaikki mahdolliset varmuuskopiot, jotka henkilötietoja sisältävistä
   tietokannoista on otettu vaalien aikana.
 
 - Avaa Overview > Dyno formation
-  - Tarkista, että web ja worker ovat "off"-tilassa
+  - Tarkista, että web ja worker ovat "off"-tilassa.
+  - Tarkista, että palvelun kustannusarvio on $0.
 
 - Avaa Resources
-  - Poista muut AddOnit, mutta *säilytä* SendGrid.
+  - Poista muut AddOnit, mutta *säilytä* maksuton SendGrid.
     - Uuden applikaation luominen Sendgridiin joutuu sähköpostin lähettämisen
       osalta karanteeniin. Kun Sendgrid-palvelu jätetään henkiin, karanteenia
       ei ole, kun palvelu seuraavan kerran otetaan käyttöön.

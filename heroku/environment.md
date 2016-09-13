@@ -5,11 +5,12 @@ Heroku-ympäristöä pystytettäessä kriittiset kohdat, kuten pääsyoikeudet j
 kaksivaiheinen tunnistautuminen, luodaan varmuuden vuoksi
 uudelleen.
 
-Herokun appsia, johon dynot kytketään, ei tarvitse luoda uudelleen vaan voidaan
-käyttää edellisiin vaaleihin luotua. Edellisen vaalin Heroku-appsia käyttämällä
-esimerkiksi domain-endpointteja ei tarvitse luoda uudelleen eikä Sendgrid laita
-uutta palvelua karenssiin. Ympäristön pystyttäminen aloitetaan varmistamalla,
-että luotava Heroku-appsi on tyhjä eikä siihen ole ylimääräisiä pääsyoikeuksia.
+Herokun appsia, johon dynot kytketään, ei tarvitse luoda uudelleen. Deploy
+voidaan tehdä edellisissä vaaleissa käytettyyn Heroku-appsiin. Edellisen vaalin
+Heroku-appsia käyttämällä esimerkiksi domain-endpointteja ei tarvitse luoda
+uudelleen eikä Sendgrid laita uutta palvelua karenssiin. Ympäristön
+pystyttäminen aloitetaan varmistamalla, että luotava Heroku-appsi on tyhjä eikä
+siihen ole ylimääräisiä pääsyoikeuksia.
 
 
 ## Dual Control -periaatteen noudattaminen
@@ -48,16 +49,15 @@ pääsyoikeuksia.
   - [ ] Vaihda käyttäjätunnuksen salasana.
     - Generoi vahva salasana esimerkiksi 1Passwordilla.
 
-  - [ ] Varmistu, että salasana ei ole muiden kuin vaalien atk-vastaavien tiedossa.
+  - [ ] Varmistu, että uusi salasana on ainoastaan yhden atk-vastaavan tiedossa.
 
   - [ ] Valitse Regenerate API key.
-    - Tällöin Heroku CLI -komentorivityökalun kaikki aiemmat käyttäjät joutuvat
-      kirjautumaan uudelleen sisään.
+    - Tällöin `heroku`-komentorivityökalun kaikki aiemmat sessiot vanhenevat.
 
   - Avaa Applications-välilehti
     - [ ] Tarkista, että Third-party Services on tyhjä.
     - [ ] Tarkista, että Authorized Services on tyhjä.
-    - [ ] Tarkista, että API clients on tyhjä.
+    - [ ] Tarkista, että API Clients on tyhjä.
 
 
 ## Kaksivaiheinen tunnistautuminen (Two factor authentication)
@@ -70,12 +70,16 @@ henkilöllä on kaksivaiheisen tunnistautumisen koodit.
 Kaksivaiheinen tunnistautuminen suojaa ainoastaan Heroku.comin webissä olevan
 hallintakonsolin. Jos kaksivaiheisen tunnistautumisen jälkeen lisätään
 pääsyoikeuksia tai SSH-avaimia, kaikki lisätyt pääsyoikeudet on lopuksi
-poistettava. Molempien ylläpitäjien on pysyttävä yhdessä samassa fyysisessä
+poistettava. Molempien ylläpitäjien on yhdessä pysyttävä samassa fyysisessä
 tilassa niin pitkään kuin ylläpitotoimet kestävät.
 
 Viimeistään tuotannon asennusvaiheessa koodigeneraattorin syötekoodi luodaan
-uusiksi, jotta varmistutaan siitä, ettei kenelläkään muulla ole pääsyä
-kaksivaiheisen tunnistautumisen koodeihin.
+uusiksi. Tällä varmistutaan siitä, ettei kenelläkään muulla ole pääsyä
+kaksivaiheisen tunnistautumisen koodeihin. Owner-käyttäjätunnuksella
+sisäänkirjautuminen vaatii sekä generoidun koodin että ennalta tunnetun
+salasanan syöttämistä.
+
+### Ylläpitotoimista laaditaan pöytäkirja
 
 Aina, kun kaksivaiheisen tunnistautumisen koodi syötetään, siitä täytyy tehdä
 merkintä vaalipöytäkirjaan. Merkinnästä on käytävä ilmi:
@@ -85,16 +89,19 @@ merkintä vaalipöytäkirjaan. Merkinnästä on käytävä ilmi:
 - Miten varmistuttiin, ettei kaksivaiheisella tunnistautumisella avattu
   selainsessio jäänyt auki tai selaimen välimuistiin.
 - Todetaan, että molemmat ATK-vastaavat olivat samassa fyysisessä tilassa
-  koko sen ajan, kun ylläpito-oikeudet olivat voimassa.  
+  koko sen ajan, kun ylläpito-oikeudet olivat voimassa.
+- Todetaan, että ylläpitotoimien ajaksi annetut uudet pääsyoikeudet on
+  poistettu.
 
 
 ### Yleiskuvaus:
 
-- Asennetaan Google Authenticator koodigeneraattori.
+- Asennetaan Google Authenticator -koodigeneraattori.
 - Käytetään SMS Recoveryssä sen henkilön puhelinnumeroa, jolla on
-  koodigeneraattori. Tämä henkilö ei saa tuntea pääkäyttäjän salasanaa.
+  koodigeneraattori. Tämä henkilö ei saa tuntea Owner-käyttäjätunnuksen
+  salasanaa.
 - SMS Recoveryssä ei saa käyttää sen henkliön puhelinnumeroa, joka tuntee
-  pääkäyttäjän salasanan.
+  Owner-käyttäjätunnuksen salasanan.
 - Salasanan tunteva henkilö ei saa nähdä koodigeneraatorin asennusvaiheessa
   näkyvää QR-koodia tai tulostettavia Recovery Codes -koodeja.
 
@@ -105,14 +112,14 @@ Varmistetaan, ettei kenelläkään muulla ole pääsyä kaksivaiheisen
 tunnistautumisen koodeihin luomalla koodigeneraattorin syöte uudelleen.
 
 Seuraavat toimenpiteet suoritetaan sen ATK-vastaavan toimesta, joka ei tunne
-pääkäyttäjän salasanaa. Henkilö, joka tuntee salasanan, ei saa nähdä jäljempänä
-syntyvää QR-koodia tai palautuskoodeja.
+Owner-käyttäjätunnuksen salasanaa. Henkilö, joka tuntee salasanan, ei saa nähdä
+jäljempänä syntyvää QR-koodia tai palautuskoodeja.
 
-- [ ] Tietokonetta käyttää ATK-vastaava, joka ei tunne Heroku-tunnuksen salasanaa.  
+- [ ] Tietokonetta käyttää ATK-vastaava, joka ei tunne Owner-käyttäjätunnuksen salasanaa.  
 - [ ] Varmistu, että olet omalla tietokoneellasi.
-- [ ] Avaa selain private browsing -tilaan.
+- [ ] Avaa selain Private Browsing -tilaan.
 
-- Avaa Avaa Heroku.com Settings > Two factor authentication.
+- Avaa Avaa Heroku.com > Settings > Two factor authentication.
   - [ ] Valitse `Disable` kohdassa "Two factor authentication is enabled"
   - [ ] Varmistu ettei koneen äärellä ole ylimääräisiä henkilöitä, jotka voivat ottaa QR-koodin tai varmistuskoodit itsellensä talteen.
   - Valitse "Set Up Two-factor Authentication"
@@ -146,11 +153,11 @@ syntyvää QR-koodia tai palautuskoodeja.
 Luodaan vaalipalvelulle Heroku-ympäristön perusasetukset.
 
 - [ ] Selain on private browsing modessa.
-- Avaa Heroku.com > hyy-vaalit
+- Avaa Heroku.com > HEROKU APPSIN NIMI
 - Avaa Access.
   - Tarkista Collaborators-listan pääsyoikeudet:
     - [ ] vaalit-admin@hyy.fi: Owner
-    - [ ] vaalityöntekijät: Collaborator
+    - [ ] deployn suorittava vaalityöntekijä: Collaborator
 - Avaa Settings
   - [ ] Aseta palvelu huoltotilaan: Maintenance Mode: On
   - Kohta Config variables
@@ -162,8 +169,8 @@ Luodaan vaalipalvelulle Heroku-ympäristön perusasetukset.
   - Kohta SSL Certificate
     - [ ] Tarkista, että SSL-sertifikaatin voimassaoloaika riittää vähintään vaalien keston ajan.
   - Kohta Domains
-    - [ ] Heroku domain hyy-vaalit.herokuapp.com
-    - [ ] Custom domains: vaalit.hyy.fi (vaalit.hyy.fi.herokudns.com)
+    - [ ] Heroku domain PALVELU.herokuapp.com (esim. hyy-vaalit.herokuapp.com)
+    - [ ] Custom domains: PALVELU.hyy.fi (esim. vaalit.hyy.fi: vaalit.hyy.fi.herokudns.com)
     - [ ] Ei muita domaineja
 
 - Avaa Resources
@@ -172,19 +179,11 @@ Luodaan vaalipalvelulle Heroku-ympäristön perusasetukset.
     - [ ] [Sendgrid](https://elements.heroku.com/addons/sendgrid)
     - [ ] New Relic
 
-- Ensimmäinen Deploy
-  - Lisää Herokun git-remote, URL näkyy sivulla Settings:
-    - [ ] git remote add production https://git.heroku.com/PALVELU.git
-  - Lisää ympäristömuuttujat
-    - Lue malli tiedostosta `cat .env.example`
-    - Lisää jokainen muuttuja `heroku config:set KEY=VALUE -r production`
-  - Deploy:
-    - [ ] git push production master
 
-  - Nosta Heroku-palvelutaso ilmaisesta maksulliseen
-    - Overview > Configure Dynos
-    - [ ] Upgrade to Hobby $7 /dyno/kk
-  - Lisää [SSL-sertifikaatti](heroku-ssl-cert.md)
-    - [ ] heroku _certs:add server.crt server.key -a hyy-ehdokastiedot
-  - Lisää domain (jos ei vielä ole)
-    - [ ] heroku domains:add palvelu.fi -a PALVELU
+- Nosta Herokun palvelutaso ilmaisesta maksulliseen.
+  - Overview > Configure Dynos
+  - [ ] Upgrade to Hobby $7 /dyno/kk
+- Lisää [SSL-sertifikaatti](heroku-ssl-cert.md)
+  - [ ] heroku _certs:add server.crt server.key -r production
+- Lisää domain (jos ei vielä ole)
+  - [ ] heroku domains:add PALVELU.hyy.fi -r production

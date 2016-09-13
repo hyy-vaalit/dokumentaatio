@@ -8,6 +8,7 @@ Herokussa on kaksi eri lisäpalvelua SSL-suojaukselle:
 2. Kesällä 2016 betaan tullut ilmainen [Heroku SSL (Beta)](https://devcenter.heroku.com/articles/ssl-beta)
    * Tämä add-on hyödyntää SNI:tä, jossa yhden IP-osoitteen takana voi olla
      monta SSL-sertifikaattia. Tämän selaintuki on vuonna 2016 riittävä.
+   * Käytämme tätä.
 
 ## Enable Labs
 
@@ -24,8 +25,8 @@ RapidSSL lähettää sertifikaattihakemuksesta vahvistuksen yhteen päätason
 verkkotunnuksen hallinnollisesta sähköpostiosoitteita. Näitä ovat esimerkiksi
 root@, administrator@, hostmaster@.
 
-Lopulta RapidSSL antaa saitin sertifikaatin ja intermediate sertifikaatin,
-jotka pitää yhdistää samaan tiedostoon:
+Lopulta RapidSSL antaa saitin sertifikaatin ja intermediate-sertifikaatin,
+jotka pitää yhdistää samaan tiedostoon, esimerkiksi:
 
 ```bash
 cat vaalit.hyy.fi.crt intermediate.crt > vaalit.hyy.fi.combined.pem
@@ -37,7 +38,7 @@ cat vaalit.hyy.fi.crt intermediate.crt > vaalit.hyy.fi.combined.pem
 
 Ota SNI SSL käyttöön:
 ```bash
-Heroku labs:enable http-sni -a PALVELUT
+Heroku labs:enable http-sni -a PALVELU
 ```
 
 Lisää uusi sertifikaatti:
@@ -47,7 +48,7 @@ Lisää uusi sertifikaatti:
 
 Aiemman sertifikaatin päivitys:
 ```bash
-heroku _certs:update server.crt server.key
+heroku _certs:update server.crt server.key -a PALVELU
 ```
 
 Jos ajossa tapahtuu virhe, poista sertifikaatti `_certs:remove`:lla ja yritä
@@ -55,22 +56,22 @@ uudelleen.
 
 Sertifikaatin tiedot:
 ```bash
-heroku _certs:info
+heroku _certs:info -a PALVELU
 ```
 
 ## Cheatsheet
 
-* Generate a self signed cert (eg. for Haka)
-  `openssl req -x509 -nodes -newkey rsa:2048 -keyout key.pem -out cert.pem -days 3650`
+* Generate a self signed cert (eg. for Haka):
+  - `openssl req -x509 -nodes -newkey rsa:2048 -keyout key.pem -out cert.pem -days 3650`
 
 * List certificate contents:
-  `openssl x509 -in cert.pem -text -noout`
+  - `openssl x509 -in cert.pem -text -noout`
 
 *  Create a certificate signing request (CSR):
-  `openssl req -new -sha256 -key my.key -out my.csr`
+  - `openssl req -new -sha256 -key my.key -out my.csr`
 
 * List CSR contents:
-  `openssl req -in mycsr.csr -noout -text`
+  - `openssl req -in mycsr.csr -noout -text`
 
 * Display key details:
-  `openssl rsa -in private.key -text -noout`
+  - `openssl rsa -in private.key -text -noout`

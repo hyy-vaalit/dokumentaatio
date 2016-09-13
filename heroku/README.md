@@ -4,7 +4,7 @@ Vaalin backend-palvelut tuotetaan Heroku-pilvipalvelussa siten, että
 henkilötiedot sijaitsevat pelkästään EU-alueella henkilötietolain määrittämässä
 laajudessa. Esimerkiksi palveluun talletettava äänioikeutettujen opiskelijoiden
 tietokanta on henkilörekisteri. Sen sijaan esimerkiksi palvelun generoimat
-logiviestit eivät kuitenkaan sisällä henkilötietoja eikä niistä voi
+logiviestit eivät sisällä henkilötietoja eikä niistä voi
 jälkikäteenkään muodostaa henkilörekisteriä.
 
 Sen lisäksi, että Herokun palvelut luodaan Europe-alueelle, myös Heroku Add-Ons
@@ -12,7 +12,7 @@ Sen lisäksi, että Herokun palvelut luodaan Europe-alueelle, myös Heroku Add-O
 -varmuuskopiointi ei tarjoa palvelua erikseen Euroopan alueella. Kuitenkin
 [Postgres Continuous
 Protection](https://devcenter.heroku.com/articles/heroku-postgres-data-safety-and-continuous-protection)
-säilyttää tietokannan varmuuskopion ja logit samalla alueella jolla
+säilyttää tietokannan varmuuskopion ja logit samalla alueella, jolla
 tietokantakin on.
 
 
