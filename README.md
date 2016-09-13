@@ -19,6 +19,14 @@ Ylläpitotoiminnoilla tarkoitetaan kaikkia niitä toimintoja, joiden kautta pä�
 vaalien aikana käsiksi Heroku.com-hallintapaneeliin tai
 `heroku`-komentorivityökaluun.
 
+Vaaliprosessin perinpohjaisuuden tarkoituksena on turvata vaalituloksen
+luotettavuus tilanteessa, jossa joku haastaa organisaation oikeuteen tai pyrkii
+muutoin mitätöimään vaalituloksen. Lisäksi Dual Control tarjoaa ylläpidolle
+oikeusturvaa: prosessia noudattaen yksittäisen ylläpitäjän ei ole mahdollista
+peukaloida vaalitulosta. Prosessin mukainen huolellinen toiminta on tarvittaessa
+voitava näyttää toteen, sen vuoksi muun muassa asianmukaisten vaalipöytäkirjojen
+kirjoittaminen on tärkeää.
+
 
 ## Sisällysluettelo
 
