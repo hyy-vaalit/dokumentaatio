@@ -60,7 +60,7 @@ https://wiki.eduuni.fi/display/CSCHAKA/Metadata
 
 ## SAML-profiili
 
-https://confluence.csc.fi/display/HAKA/SAML-profiili
+[HAKA SAML-profiili](https://wiki.eduuni.fi/display/CSCHAKA/SAML-profiili)
 
 [Sertifikaatin vaihtaminen](https://confluence.csc.fi/display/HAKA/SAML-varmenteen+vaihtaminen)
 * "SAML-palvelun (SP) tai tunnistuslähteen (IdP) varmenteen vaihtaminen vaatii
