@@ -35,3 +35,7 @@ on laadittava pöytäkirja, jonka allekirjoittavat ylläpito-oikeuksien molemmat
 haltijat. Pöytäkirjasta on käytävä ilmi, että molemmat ylläpito-oikeuksien
 haltijat olivat läsnä samassa fyysisessä tilassa koko ylläpito-oikeuksien käytön
 ajan siihen asti, että ylimääräiset pääsyoikeudet poistettiin.
+
+
+## Linkit:
+* [Esimerkki pöytäkirjasta](https://docs.google.com/document/d/1oaHR-T-TdU2MLTGLZgPicL3je6p6uHKu7C1qMfbNe0M/edit?usp=sharing)
