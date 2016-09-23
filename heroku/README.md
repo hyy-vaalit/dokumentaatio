@@ -26,5 +26,6 @@ Linkkejä:
 * [Dual Control -yleiskuvaus](dual-control.md)
 * [Heroku-ympäristön pystyttäminen](environment.md)
   - [SSL-sertifikaatin asentaminen](ssl-cert.md)
+* [Pääsyoikeudet SSH-avaimella](ssh-key.md)
 * [Palvelun deployn yleiskuvaus](deploy.md)
 * [Vaalien lopuksi](removal.md)

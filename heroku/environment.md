@@ -51,7 +51,7 @@ pääsyoikeuksia.
 
   - [ ] Varmistu, että uusi salasana on ainoastaan yhden atk-vastaavan tiedossa.
 
-  - [ ] Valitse Regenerate API key.
+  - [ ] Valitse Regenerate API key.
     - Tällöin `heroku`-komentorivityökalun kaikki aiemmat sessiot vanhenevat.
 
   - Avaa Applications-välilehti
@@ -69,7 +69,8 @@ henkilöllä on kaksivaiheisen tunnistautumisen koodit.
 
 Kaksivaiheinen tunnistautuminen suojaa ainoastaan Heroku.comin webissä olevan
 hallintakonsolin. Jos kaksivaiheisen tunnistautumisen jälkeen lisätään
-pääsyoikeuksia tai SSH-avaimia, kaikki lisätyt pääsyoikeudet on lopuksi
+pääsyoikeuksia tai SSH-avaimia, jokainen käytettävä SSH-avain on generoitava
+tyhjästä Dual Control -session aikana. Lopuksi kaikki lisätyt pääsyoikeudet on
 poistettava. Molempien ylläpitäjien on yhdessä pysyttävä samassa fyysisessä
 tilassa niin pitkään kuin ylläpitotoimet kestävät.
 

@@ -54,6 +54,19 @@ Ennen deployn suorittamista,
 [varmistetaan vertaisarvioiden git-historiasta](../git/changes.md)
 muutokset aiempaan turvalliseksi todettuun versioon nähden.
 
+
+## Valmistelut: pääsyoikeuksien lisääminen
+
+Pääsyoikeuksiin kytkettävä SSH-avain on aina generoitava uudelleen Dual Control
+-session aikana. Tällä varmistutaan, ettei SSH-avain ole kolmannen osapuolen
+hallussa. SSH-avain voi päätyä kolmannen osapuolen haltuun esimerkiksi siten,
+että toinen ATK-vastaava on tietoisesti luovuttanut avaimen eteenpäin Dual
+Control -session ulkopuolella.
+
+Checklist: [Uuden SSH-avaimen luominen](ssh-key.md)
+
+
+
 ## Heroku: Ensimmäinen deploy
 
 Suoritetaan palvelun ensimmäinen deploy Herokuun.
