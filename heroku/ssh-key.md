@@ -11,9 +11,9 @@ poistetaan.
 
 ## SSH-avaimen luominen
 ```bash
+cd ~/.ssh
 ls id_dual_control*
 (tarvittaessa) rm id_dual_control*
-cd ~/.ssh
 ssh-keygen
 
 Generating public/private rsa key pair.

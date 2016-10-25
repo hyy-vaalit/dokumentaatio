@@ -37,6 +37,7 @@ pääsyoikeuksia.
 - Avaa Heroku.com > Personal apps > hyy-vaalit > Access
   - [ ] Poista Collaborators-listasta muut käyttäjät paitsi owner.
     - Owner on sama käyttäjätunnus, jolla olet kirjautuneena Heroku.comiin.
+    - ATK-vastaavat ja pääsihteeri saavat kaikki tunnuksen sähköpostit.
 
 - Avaa valikko oikeassa yläkulmassa > Account settings
   - [ ] Tarkista, että sähköpostiosoitteen verkkotunnus kohdassa "Email address" päättyy @ hyy.fi
@@ -56,7 +57,7 @@ pääsyoikeuksia.
 
   - Avaa Applications-välilehti
     - [ ] Tarkista, että Third-party Services on tyhjä.
-    - [ ] Tarkista, että Authorized Services on tyhjä.
+    - [ ] Tarkista, että Authorized Application on tyhjä.
     - [ ] Tarkista, että API Clients on tyhjä.
 
 
@@ -158,7 +159,14 @@ Luodaan vaalipalvelulle Heroku-ympäristön perusasetukset.
 - Avaa Access.
   - Tarkista Collaborators-listan pääsyoikeudet:
     - [ ] vaalit-admin@hyy.fi: Owner
-    - [ ] deployn suorittava vaalityöntekijä: Collaborator
+    - [ ] Ei muita collaboratoreita.
+  - Luo uusi SSH-avain deployn suorittavalle henkilölle.
+  - Lisää edellä luotu SSH-avain sivulla Account Settings > SSH-key.
+
+- Poista aiempi Postgres-tietokanta.
+  - Avaa Resources
+  - Valitse Heroku Postgres > Remove
+
 - Avaa Settings
   - [ ] Aseta palvelu huoltotilaan: Maintenance Mode: On
   - Kohta Config variables

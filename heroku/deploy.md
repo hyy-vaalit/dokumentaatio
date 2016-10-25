@@ -89,7 +89,7 @@ Suoritetaan palvelun ensimmäinen deploy Herokuun.
     offsetiksi +0300 ja loppumisajankohdan offsetiksi +0200.
 
 - Suorita deploy:
-  - `bin/deploy production master`
+  - `bin/deploy production`
   - Palvelun masterin on syytä vastata aina tuotannossa olevaa versiota.
 
 - Luo tietokannan skeema:
