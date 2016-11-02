@@ -124,4 +124,6 @@ Suoritetaan palvelun ensimmäinen deploy Herokuun.
     - [ ] Maintenance Mode: Off
   - Komentoriviltä: `heroku maintenance:off -a PALVELU`
 - Poista ylimääräiset pääsyoikeudet.
+- Sulje avatut terminaali-ikkunat.
+- Sulje avatut selainkkunat.
 - Allekirjoita vaalipöytäkirja.

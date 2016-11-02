@@ -26,9 +26,13 @@ Kun kirjaudutaan Herokun hallintakonsoliin, selaimen on aina oltava Private
 Browsing -tilassa. Istunnon päätyttyä varmistetaan, ettei palvelussa ole
 Owner-käyttäjätunnuksen lisäksi muita pääsyoikeuksia. Lopuksi generoidaan
 Herokun API-avain uudelleen, mikä kirjaa ulos kaikki aiemmat
-`heroku`-komentorivityökalun sessiot. Viimeisenä vaiheena suljetaan Private
-Browsing -tilassa oleva selain, mikä poistaa selaimen välimuistiin jääneet
-sessiotiedot.
+`heroku`-komentorivityökalun sessiot. API-avaimen uudelleengenerointi ei
+keskeytä auki olevia istuntoja (esim `heroku console` tai `heroku logs`).
+
+Viimeisenä vaiheena suljetaan Private Browsing -tilassa oleva selain, mikä
+poistaa selaimen välimuistiin jääneet sessiotiedot. Lisäksi suljetaan kaikki
+terminaali-ikkunat ja varmistutaan, ettei historiatietoihin jäänyt
+API-avaimia ja että avatut `heroku`-sessiot on suljettu.
 
 Jokaisesta vaalien aikana ylläpito-oikeuksin suoritettavasta tapahtumasta
 on laadittava pöytäkirja, jonka allekirjoittavat ylläpito-oikeuksien molemmat
