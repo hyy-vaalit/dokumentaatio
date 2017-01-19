@@ -88,8 +88,8 @@ https://wiki.eduuni.fi/display/CSCHAKA/Metadata
 
 * Vaalijärjestelmän Hakaan rekisteröity testi-SP:
   * localhost.enemy.fi on 127.0.0.1, Hakaan ei voi rekisteröidä pelkkää `localhost`
-  * SP Login page URL: http://localhost.enemy.fi:3000/saml_sp_login/new
-  * SP Consumer URL: http://localhost.enemy.fi:3000/saml_sp_login/consume
+  * SP Login page URL: http://localhost.enemy.fi:3000/haka/auth/new
+  * SP Consumer URL: http://localhost.enemy.fi:3000/haka/auth/consume
   * Issuer: hyy.voting.test.local
   * Name identifier format: urn:oasis:names:tc:SAML:2.0:nameid-format:persistent
   * Sertifikaatit: kysy Petrus Repo
