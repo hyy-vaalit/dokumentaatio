@@ -2,7 +2,12 @@
 
 Voting API:iin esikonfiguroidaan halutun identiteetintarjoajan (IdP) tiedot.
 Tällä tavoin ainoastaan halutun IdP:n käyttäjätunnuksilla pääsee kirjautumaan
-sisään.
+sisään. 
+
+Jos IdP:tä ei kovakoodattaisi, sisäänkirjautuneen käyttäjän kotiorganisaatio 
+pitäisi tarkistaa attribuutista 
+[`schacHomeOrganization`](http://www.helsinki.fi/atk/luvat/ldap/doc/index.html#henkiloluokat_schacHomeOrganization)
+ja varmistaa että vain `helsinki.fi` hyväksytään.
 
 Jäljempänä esitetyt ympäristömuuttujat asetetaan voting-apin tiedostoon `.env`.
 Katso [.env.example](https://github.com/hyy-vaalit/voting-api/blob/master/.env.example)
