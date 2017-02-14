@@ -33,11 +33,9 @@ Apachea.
 
 ## Attribuutit
 
-* Opiskelijanumero: [schacPersonalUniqueCode](https://confluence.csc.fi/display/HAKA/funetEduPersonSchema2dot2#funetEduPersonSchema2dot2-schacPersonalUniqueCode)
+* Hakan opiskelijanumero muotoa: [schacPersonalUniqueCode](https://wiki.eduuni.fi/display/CSCHAKA/funetEduPersonSchema2dot2#funetEduPersonSchema2dot2-schacPersonalUniqueCode)
 
 * Helsingin yliopiston opiskelijanumero muotoa: [urn:mace:terena.org:schac:personalUniqueCode:int:studentID:helsinki.fi:165934](http://www.helsinki.fi/atk/luvat/ldap/doc/index.html#henkiloluokat_schacPersonalUniqueCode)
-
-* [SP:n pyydettävissä olevat attribuutit](https://confluence.csc.fi/display/HAKA/Attributes+requested+by+SP-servers)
 
 * [Helsingin yliopiston attribuutit](http://www.helsinki.fi/atk/urn/)
 
