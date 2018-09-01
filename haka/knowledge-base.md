@@ -80,9 +80,14 @@ https://wiki.eduuni.fi/display/CSCHAKA/Metadata
 
 ## CSC Hakan Testipalvelu
 
-* [Hakan ohjeet](https://confluence.csc.fi/display/HAKA/Testipalvelimet)
+* [Hakan ohjeet Testipalvelusta](https://wiki.eduuni.fi/display/CSCHAKA/Testipalvelimet)
 
 * [Hakan Test metadata](https://haka.funet.fi/metadata/haka_test_metadata_signed.xml)
+  * Testipalvelun sertifikaatti on todennäköisesti päivittynyt edellisten
+    vaalien jälkeen. Sertifikaatti on attribuutin `X509Certificate` arvo
+    Kohdassa `<EntityDescriptor .. entityID="https://testidp.funet.fi/idp/shibboleth">`
+  * Kopioi Hakan testipalvelun päivitetyt sertifikaatit hakemistoon
+    voting-apin hakemistoon `doc/example_certificates`.
 
 * Vaalijärjestelmän Hakaan rekisteröity testi-SP:
   * localhost.enemy.fi on 127.0.0.1, Hakaan ei voi rekisteröidä pelkkää `localhost`
