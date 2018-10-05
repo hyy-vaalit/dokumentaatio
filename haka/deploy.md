@@ -72,6 +72,9 @@ Ks myös hakemisto `doc/example_certificates`
 
 ### Esimerkiksi helsinki.fi:
 
+* [Helsingin ylipiston Shibboleth-ohjesivu](https://wiki.helsinki.fi/display/IAMasioita/Ohjeet+Shibbolointiin#OhjeetShibbolointiin-IdP:nmetatiedot)
+* [Helsingin yliopiston metadata](https://login.helsinki.fi/metadata/sign-hy-metadata.xml)
+
 IdP Entity ID:
 `<EntityDescriptor [..] entityID="https://login.helsinki.fi/shibboleth">`
 
