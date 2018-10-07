@@ -2,10 +2,10 @@
 
 Voting API:iin esikonfiguroidaan halutun identiteetintarjoajan (IdP) tiedot.
 Tällä tavoin ainoastaan halutun IdP:n käyttäjätunnuksilla pääsee kirjautumaan
-sisään. 
+sisään.
 
-Jos IdP:tä ei kovakoodattaisi, sisäänkirjautuneen käyttäjän kotiorganisaatio 
-pitäisi tarkistaa attribuutista 
+Jos IdP:tä ei kovakoodattaisi, sisäänkirjautuneen käyttäjän kotiorganisaatio
+pitäisi tarkistaa attribuutista
 [`schacHomeOrganization`](http://www.helsinki.fi/atk/luvat/ldap/doc/index.html#henkiloluokat_schacHomeOrganization)
 ja varmistaa että vain `helsinki.fi` hyväksytään.
 
@@ -54,6 +54,9 @@ Talleta data esim. tiedostoon `certs/haka-test-idp.crt`:
 - Lisää alkuun `-----BEGIN CERTIFICATE-----`
 - Lisää loppuun `-----END CERTIFICATE-----`
 - Tarkista, että jokainen rivi (paitsi viimeinen) on saman pituinen.
+- Jos copypasteat selaimesta, rivivaihdot eivät ainakaan Chromella tule mukaan.
+  Korvaa käsin tekstieditorilla jokainen Base64:n sisällä oleva whitespace
+  rivivaihdoksi (eli jokainen rivi paitsi viimeinen on samanpituinen).
 
 Lue sertifikaatti ympäristömuuttujaan:
 
@@ -88,4 +91,7 @@ Sisäänkirjautumissivun osoite:
 
 
 IdP Certificate, kuten Haka Test:
+* Etsi oikean `entityID`:n alta
+  `<KeyDescriptor use="signing">` -> `<ds:X509Data>` -> `<ds:X509Certificate>`
+
 => `SAML_IDP_CERT="$(cat cert/hy-idp.crt)"`
