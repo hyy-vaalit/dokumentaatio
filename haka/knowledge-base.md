@@ -37,7 +37,7 @@ Apachea.
 
 * Helsingin yliopiston opiskelijanumero muotoa: [urn:mace:terena.org:schac:personalUniqueCode:int:studentID:helsinki.fi:165934](http://www.helsinki.fi/atk/luvat/ldap/doc/index.html#henkiloluokat_schacPersonalUniqueCode)
 
-* [Helsingin yliopiston attribuutit](http://www.helsinki.fi/atk/urn/)
+* [Helsingin yliopiston attribuutit](https://wiki.helsinki.fi/pages/viewpage.action?pageId=226580829)
 
 
 ## Metadata
