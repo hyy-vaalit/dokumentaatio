@@ -20,14 +20,7 @@ tietokanta on ensin poistettava ja sen jälkeen luotava tyhjästä uudelleen.
   - Tarkista, että palvelun kustannusarvio on $0.
 
 - Avaa Resources
-  - Poista muut AddOnit, mutta *säilytä* maksuton SendGrid.
-    - Uuden applikaation luominen Sendgridiin joutuu sähköpostin lähettämisen
-      osalta karanteeniin. Kun Sendgrid-palvelu jätetään henkiin, karanteenia
-      ei ole, kun palvelu seuraavan kerran otetaan käyttöön.
-    - Jos joudut luomaan uuden Heroku palvelun, lähetä Sendgridille
-      support-pyyntönä karanteeinin poistaminen. Pahimmillaan karanteeni
-      viivästyttää sähköpostin lähetystä jopa 12 tunnilla (koettu
-      hallintovaaleissa syksyllä 2015).
+  - Poista AddOnit.
 
 - Luo viimeiselle deploy-tagille tagi, josta näkee seuraavissa vaaleissa, mikä
   oli viimeinen tuotannossa ollut versio. Esimerkiksi `vuosiluku-final`.

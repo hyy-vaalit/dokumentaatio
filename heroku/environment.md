@@ -8,9 +8,9 @@ uudelleen.
 Herokun appsia, johon dynot kytketään, ei tarvitse luoda uudelleen. Deploy
 voidaan tehdä edellisissä vaaleissa käytettyyn Heroku-appsiin. Edellisen vaalin
 Heroku-appsia käyttämällä esimerkiksi domain-endpointteja ei tarvitse luoda
-uudelleen eikä Sendgrid laita uutta palvelua karenssiin. Ympäristön
-pystyttäminen aloitetaan varmistamalla, että luotava Heroku-appsi on tyhjä eikä
-siihen ole ylimääräisiä pääsyoikeuksia.
+uudelleen. Ympäristön pystyttäminen aloitetaan varmistamalla, että luotava Heroku-app on tyhjä, eikä
+siihen ole ylimääräisiä pääsyoikeuksia. Palvelun ympäristömuuttujiin määritetyt pääsyavaimet luodaan
+uudelleen.
 
 
 ## Dual Control -periaatteen noudattaminen
@@ -117,7 +117,7 @@ Seuraavat toimenpiteet suoritetaan sen ATK-vastaavan toimesta, joka ei tunne
 Owner-käyttäjätunnuksen salasanaa. Henkilö, joka tuntee salasanan, ei saa nähdä
 jäljempänä syntyvää QR-koodia tai palautuskoodeja.
 
-- [ ] Tietokonetta käyttää ATK-vastaava, joka ei tunne Owner-käyttäjätunnuksen salasanaa.  
+- [ ] Tietokonetta käyttää ATK-vastaava, joka ei tunne Owner-käyttäjätunnuksen salasanaa.
 - [ ] Varmistu, että olet omalla tietokoneellasi.
 - [ ] Avaa selain Private Browsing -tilaan.
 
@@ -172,8 +172,6 @@ Luodaan vaalipalvelulle Heroku-ympäristön perusasetukset.
   - Kohta Config variables
     - Jätä seuraavat ympäristömuuttujat (Config Vars),
       - HEROKU_*
-      - SENDGRID_*
-      - NEWRELIC_*
     - Poista muut ympäristömuuttujat.
   - Kohta SSL Certificate
     - [ ] Tarkista, että SSL-sertifikaatin voimassaoloaika riittää vähintään vaalien keston ajan.
@@ -185,8 +183,6 @@ Luodaan vaalipalvelulle Heroku-ympäristön perusasetukset.
 - Avaa Resources
   - Lisää AddOnit:
     - [ ] Heroku Postgres, [Hobby Basic](https://elements.heroku.com/addons/heroku-postgresql), $9/kk
-    - [ ] [Sendgrid](https://elements.heroku.com/addons/sendgrid)
-    - [ ] New Relic
 
 
 - Nosta Herokun palvelutaso ilmaisesta maksulliseen.
