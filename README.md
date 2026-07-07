@@ -35,6 +35,7 @@ kirjoittaminen on tärkeää.
 * [CSC Haka](haka/README.md)
 * [Amazon AWS](aws/README.md)
 * [Vaalit](elections/README.md)
+* [Äänestyksen käyttöliittymän jakelu](frontend.md)
 
 
 ## Muokkaajalle ohjeeksi:
