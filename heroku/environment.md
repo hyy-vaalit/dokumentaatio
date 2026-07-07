@@ -22,8 +22,8 @@ päästä käyttämään ylläpito-oikeuksia ilman toisen henkilön läsnäoloa 
 
 Rajoitus koskee erityisesti:
 - Pääsyä Herokun hallintakonsoliin Owner-käyttäjätunnuksella.
-- Tilanteita, joissa palveuun on Collaborator-oikeudet muilla kuin
-  Owner-käyttäjätunnuksella tai palveluun on liitetty SSH-avain.
+- Tilanteita, joissa palveluun on Collaborator-oikeudet muilla kuin
+  Owner-käyttäjätunnuksella tai tunnukselle on luotu CLI-valtuutuksia.
 - Heroku CLI -komentorivityökalun käyttöä (`heroku`-komento).
 
 
@@ -40,12 +40,14 @@ pääsyoikeuksia.
     - ATK-vastaavat ja pääsihteeri saavat kaikki tunnuksen sähköpostit.
 
 - Avaa valikko oikeassa yläkulmassa > Account settings
-  - [ ] Tarkista, että sähköpostiosoitteen verkkotunnus kohdassa "Email address" päättyy @ hyy.fi
+  - [ ] Tarkista, että sähköpostiosoitteen verkkotunnus kohdassa "Email address" päättyy @ hyy.fi
     - Tällöin vain hyy.fi-verkkotunnuksen ylläpito voi muuttaa sitä,
       kuka saa postiosoitteeseen lähetettävän password recovery -viestin.
   - [ ] Sähköpostiosoitteeseen lähetetty sähköpostiviesti saapuu molemmille ATK-vastaaville.
 
-  - [ ] Tarkista, että "Registered ssh keys" on tyhjä.
+  - [ ] Tarkista, että "SSH Keys" on tyhjä.
+    - SSH-avaimia ei enää käytetä deployhin (git-deploy on HTTPS),
+      joten listalla ei kuulu olla mitään.
 
   - [ ] Vaihda käyttäjätunnuksen salasana.
     - Generoi vahva salasana esimerkiksi 1Passwordilla.
@@ -117,8 +119,8 @@ Seuraavat toimenpiteet suoritetaan sen ATK-vastaavan toimesta, joka ei tunne
 Owner-käyttäjätunnuksen salasanaa. Henkilö, joka tuntee salasanan, ei saa nähdä
 jäljempänä syntyvää QR-koodia tai palautuskoodeja.
 
-- [ ] Tietokonetta käyttää ATK-vastaava, joka ei tunne Owner-käyttäjätunnuksen salasanaa.
-- [ ] Varmistu, että olet omalla tietokoneellasi.
+- [ ] Tietokonetta käyttää ATK-vastaava, joka ei tunne Owner-käyttäjätunnuksen salasanaa.
+- [ ] Varmistu, että olet omalla tietokoneellasi.
 - [ ] Avaa selain Private Browsing -tilaan.
 
 - Avaa Avaa Heroku.com > Settings > Two factor authentication.
@@ -127,27 +129,27 @@ jäljempänä syntyvää QR-koodia tai palautuskoodeja.
   - Valitse "Set Up Two-factor Authentication"
     - [ ] Asenna puhelimeesi Google Authenticator
     - [ ] Skannaa Google Authenticatorilla Herokun antama two factor authin koodien siemenenä toimiva QR-koodi.
-    - [ ] Syötä koodigeneraattorin antama koodi kohdassa "Verify your app"
-    - [ ] Paina Enable two factor authentication
+    - [ ] Syötä koodigeneraattorin antama koodi kohdassa "Verify your app"
+    - [ ] Paina Enable two factor authentication
 
 - Two factor auth on nyt enabled.
   - Ennen Recovery Options -vaiheen suorittamista, varmista että muut eivät
     näe tietokoneen ruutua.
   - Paina Set up recovery options:
-    - [ ] Syötä numerosi SMS recoveryyn
+    - [ ] Syötä numerosi SMS recoveryyn
     - [ ] Syötä tekstiviestinä saapunut vahvistuskoodi
     - SMS recovery saa olla vain sellaisella henkilöllä, joka ei tunne ensisijaista salasanaa.
     - Ota talteen tekstimuodossa olevat palautuskoodit (Recovery Codes).
       - [ ] Tulosta koodit paperille tai 1Passwordiin
       - [ ] Talleta paperi esimerkiksi kassakaappiin, tai muuhun turvalliseen paikkaan.
     - [ ] Varmistu, että kukaan muu ei nähnyt palautuskoodeja eikä koodigeneraattorin syötteenä toiminutta QR-koodia.
-    - [ ] Varmistu, ettei tulostetuista palautuskoodeista syntynyt tiedostoa esimerkiksi Downloads-hakemistoon.
+    - [ ] Varmistu, ettei tulostetuista palautuskoodeista syntynyt tiedostoa esimerkiksi Downloads-hakemistoon.
 - [ ] Tarkista, että sivulla lukee: Two factor authentication is enabled
-- [ ] Tarkista, että backup phone number sisältää ainoastaan oman puhelinnumerosi.
-- [ ] Sulje selain. Private browsing moden ansiosta selain tyhjentää sulkemisen yhteydessä historiansa ja välimuistinsa.
+- [ ] Tarkista, että backup phone number sisältää ainoastaan oman puhelinnumerosi.
+- [ ] Sulje selain. Private browsing moden ansiosta selain tyhjentää sulkemisen yhteydessä historiansa ja välimuistinsa.
 - Tarkista, että asetukset ovat kunnossa:
-  - [ ] Avaa uusi selainikkuna private browsing modeen
-  - [ ] Varmistu, että Heroku.com kysyy salasanan syöttämisen jälkeen kaksivaiheisen tunnistautumisen koodia.
+  - [ ] Avaa uusi selainikkuna private browsing modeen
+  - [ ] Varmistu, että Heroku.com kysyy salasanan syöttämisen jälkeen kaksivaiheisen tunnistautumisen koodia.
 
 
 ## Palvelun luominen Herokuun
@@ -159,22 +161,25 @@ Luodaan vaalipalvelulle Heroku-ympäristön perusasetukset.
 - Avaa Access.
   - Tarkista Collaborators-listan pääsyoikeudet:
     - [ ] vaalit-admin@hyy.fi: Owner
-    - [ ] Ei muita collaboratoreita.
-  - Luo uusi SSH-avain deployn suorittavalle henkilölle.
-  - Lisää edellä luotu SSH-avain sivulla Account Settings > SSH-key.
+    - [ ] Ei muita collaboratoreita.
+  - Deployn suorittaja kirjautuu CLI:hin Dual Control -sessiossa:
+    ks. [Pääsyoikeudet Heroku CLI:lle](cli-access.md).
 
 - Poista aiempi Postgres-tietokanta.
   - Avaa Resources
   - Valitse Heroku Postgres > Remove
 
 - Avaa Settings
-  - [ ] Aseta palvelu huoltotilaan: Maintenance Mode: On
+  - [ ] Aseta palvelu huoltotilaan: Maintenance Mode: On
   - Kohta Config variables
     - Jätä seuraavat ympäristömuuttujat (Config Vars),
       - HEROKU_*
     - Poista muut ympäristömuuttujat.
   - Kohta SSL Certificate
-    - [ ] Tarkista, että SSL-sertifikaatin voimassaoloaika riittää vähintään vaalien keston ajan.
+    - [ ] Tarkista, että Automated Certificate Management on käytössä ja
+      sertifikaatti on kunnossa: `heroku certs:auto -a PALVELU`.
+      ACM uusii sertifikaatin automaattisesti
+      (ks. [SSL-sertifikaatti](ssl-cert.md)).
   - Kohta Domains
     - [ ] Heroku domain PALVELU.herokuapp.com (esim. hyy-vaalit.herokuapp.com)
     - [ ] Custom domains: PALVELU.hyy.fi (esim. vaalit.hyy.fi: vaalit.hyy.fi.herokudns.com)
@@ -182,13 +187,16 @@ Luodaan vaalipalvelulle Heroku-ympäristön perusasetukset.
 
 - Avaa Resources
   - Lisää AddOnit:
-    - [ ] Heroku Postgres, [Hobby Basic](https://elements.heroku.com/addons/heroku-postgresql), $9/kk
+    - [ ] [Heroku Postgres](https://elements.heroku.com/addons/heroku-postgresql),
+      Essential-taso riittää (esim. Essential-0, 1 Gt tai
+      Essential-1, 10 Gt). Vanhat Hobby/Mini/Basic-planit on poistettu.
 
 
-- Nosta Herokun palvelutaso ilmaisesta maksulliseen.
+- Valitse dyno-tyyppi. Ilmaista tasoa ei enää ole; edullisin
+  itsenäinen taso on Basic ($7/dyno/kk).
   - Overview > Configure Dynos
-  - [ ] Upgrade to Hobby $7 /dyno/kk
-- Lisää [SSL-sertifikaatti](heroku-ssl-cert.md)
-  - [ ] heroku _certs:add server.crt server.key -r production
+  - [ ] Dyno Type: Basic
+- Ota käyttöön [SSL-sertifikaatti](ssl-cert.md)
+  - [ ] heroku certs:auto:enable -a PALVELU
 - Lisää domain (jos ei vielä ole)
-  - [ ] heroku domains:add PALVELU.hyy.fi -r production
+  - [ ] heroku domains:add PALVELU.hyy.fi -r production

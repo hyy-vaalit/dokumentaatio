@@ -1,65 +1,36 @@
+# SSL-sertifikaatti Herokussa
 
-# SSL-sertifikaatin lisääminen Herokuun
+Heroku hoitaa SSL-sertifikaatit nykyään automaattisesti:
+[Automated Certificate Management (ACM)](https://devcenter.heroku.com/articles/automated-certificate-management)
+hankkii ja uusii Let's Encrypt -sertifikaatin ilmaiseksi. Sertifikaattia
+ei enää osteta eikä asenneta käsin. ACM uusii sertifikaatin
+automaattisesti kuukautta ennen vanhenemista.
 
-Herokussa on kaksi eri lisäpalvelua SSL-suojaukselle:
-
-1. Perinteinen lisämaksullinen [SSL Endpoint](https://devcenter.heroku.com/articles/ssl-endpoint)
-   * Tämä add-on antaa jokaiselle SSL-endpointille oman IP-osoitteen.
-2. Kesällä 2016 betaan tullut ilmainen [Heroku SSL (Beta)](https://devcenter.heroku.com/articles/ssl-beta)
-   * Tämä add-on hyödyntää SNI:tä, jossa yhden IP-osoitteen takana voi olla
-     monta SSL-sertifikaattia. Tämän selaintuki on vuonna 2016 riittävä.
-   * Käytämme tätä.
-
-## Enable Labs
+Ota ACM käyttöön:
 
 ```bash
-heroku labs:enable http-sni -a PALVELU
-heroku plugins:install heroku-certs
+heroku certs:auto:enable -a PALVELU
 ```
 
-## Hanki sertifikaatti
-
-Luotettava ja edullinen toimija on [RapidSSL](https://www.RapidSSL.com).
-
-RapidSSL lähettää sertifikaattihakemuksesta vahvistuksen yhteen päätason
-verkkotunnuksen hallinnollisesta sähköpostiosoitteita. Näitä ovat esimerkiksi
-root@, administrator@, hostmaster@.
-
-Lopulta RapidSSL antaa saitin sertifikaatin ja intermediate-sertifikaatin,
-jotka pitää yhdistää samaan tiedostoon, esimerkiksi:
+Tarkista sertifikaatin tila ja voimassaolo:
 
 ```bash
-cat vaalit.hyy.fi.crt intermediate.crt > vaalit.hyy.fi.combined.pem
+heroku certs:auto -a PALVELU
 ```
 
-## Lisää sertifikaatti Herokuun
+Custom domainin (esim. vaalit.hyy.fi) DNS:n on osoitettava Herokun
+antamaan DNS-targetiin (`heroku domains -a PALVELU`), jotta ACM voi
+myöntää sertifikaatin. Jos myöntäminen epäonnistuu, korjaa DNS ja aja
+`heroku certs:auto:refresh -a PALVELU`.
 
-[Herokun ohjeet](https://devcenter.heroku.com/articles/ssl-beta)
+Oman sertifikaatin voi edelleen asentaa käsin komennolla
+`heroku certs:add`, mutta vaalipalveluissa siihen ei ole tarvetta.
 
-Ota SNI SSL käyttöön:
-```bash
-Heroku labs:enable http-sni -a PALVELU
-```
 
-Lisää uusi sertifikaatti:
-```bash
- heroku _certs:add vaalit.hyy.fi.combined.pem server.key -a PALVELU
- ```
+## OpenSSL-cheatsheet
 
-Aiemman sertifikaatin päivitys:
-```bash
-heroku _certs:update server.crt server.key -a PALVELU
-```
-
-Jos ajossa tapahtuu virhe, poista sertifikaatti `_certs:remove`:lla ja yritä
-uudelleen.
-
-Sertifikaatin tiedot:
-```bash
-heroku _certs:info -a PALVELU
-```
-
-## Cheatsheet
+Self-signed-sertifikaattia tarvitaan edelleen esim. Hakan
+SAML-konfiguraatioon (ks. [Haka](../haka/README.md)):
 
 * Generate a self signed cert (eg. for Haka):
   - `openssl req -x509 -nodes -newkey rsa:2048 -keyout key.pem -out cert.pem -days 3650`
@@ -67,7 +38,7 @@ heroku _certs:info -a PALVELU
 * List certificate contents:
   - `openssl x509 -in cert.pem -text -noout`
 
-*  Create a certificate signing request (CSR):
+* Create a certificate signing request (CSR):
   - `openssl req -new -sha256 -key my.key -out my.csr`
 
 * List CSR contents:
