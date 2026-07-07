@@ -37,5 +37,14 @@ mahdollista auditoida jälkikäteen.
 - [ ] Varmista henkilöllisyys
 - [ ] Varmista jäsenmaksun suoritus
 - [ ] Varmista, että voting-api:n worker-dyno on käynnissä
-- [ ] Luo äänestäjä
+- [ ] Luo äänestäjä
 - [ ] (tarvittaessa) Lähetä sisäänkirjautumislinkki
+
+
+## Äänestysaktiivisuuden live-statistiikat
+
+Äänestyksen ajaksi Vaalitulostimeen scheduloidaan taustajobit, jotka
+hakevat voting-apista äänestysaktiivisuuden tiedekunnittain, tunneittain
+ja opintojen aloitusvuosittain ja julkaisevat tilastot S3:een
+(ks. Vaalitulostimen README, "Scheduloi taustajobit statsien
+päivittämistä varten"). Jobit vaativat Vaalitulostimen worker-dynon.

@@ -6,16 +6,17 @@ tarvitse kirjoittaa, vaan oleelliset muutokset pystyy silmäilemään git-logist
 commit-viestin avainsanojen perusteella. Esimerkiksi uudet toiminnallisuudet
 voi hakea git-logista filtteröimällä commit-viestit, jotka alkavat `feat`.
 
-Viestin jokaisen rivin maksimipituus on 80 merkkiä, jotta rivi mahtuu kokonaan
-esimerkiksi Githubin historianäkymään, kapeaan terminaali-ikkunaan ja useimpiin
-git-historiatyökaluihin. Jos asia ei mahdu yhdelle riville, ensimmäiselle
-riville kirjoitetaan oleellinen ja viestiä jatketaan yhden tyhjän rivin jälkeen
-alempana.
+Viestin ensimmäisen rivin maksimipituus on 72 merkkiä, jotta rivi mahtuu
+kokonaan Githubin historianäkymään (joka katkaisee otsikon noin 72
+merkin kohdalla), kapeaan terminaali-ikkunaan ja useimpiin
+git-historiatyökaluihin. Jos asia ei mahdu yhdelle riville,
+ensimmäiselle riville kirjoitetaan oleellinen ja viestiä jatketaan
+yhden tyhjän rivin jälkeen alempana.
 
 Commit-viestien formaatti on mukautettu
 [Angularin git commit -ohjeistuksesta](https://github.com/angular/angular.js/blob/d14c7f3c31deb098bf8f1c50ea6d00af758dbdcb/CONTRIBUTING.md#commit):
 ```
-avainsana (aihealue) Verbillä alkava kuvaus, 70-80 merkkiä.
+avainsana (aihealue) Verbillä alkava kuvaus, enintään 72 merkkiä.
 <tyhjä rivi>
 Jos viesti on pitkä, jätä ensimmäisen rivin väliin tyhjä rivi
 ja jatka kirjoittamista sen alle.

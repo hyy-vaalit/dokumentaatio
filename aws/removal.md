@@ -5,6 +5,10 @@ vaalituloksen esitysmuodon. Bucketteja tai niihin talletettua dataa ei poisteta.
 Jokaiselta AWS IAM -käyttäjältä poistetaan kuitenkin mahdollinen Access Key
 ja salasana, jotta muutoksia tietoihin ei vaalien välisenä aikana synny.
 
+Huomaa, että IAM-käyttäjiä on kaikilla kolmella sovelluksella:
+Vaalitulostimen S3-julkaisija sekä voting-apin ja ehdokastiedon
+SES-sähköpostilähettäjät. Checklist koskee niitä kaikkia.
+
 
 ## Checklist
 

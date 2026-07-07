@@ -3,7 +3,7 @@
 Näissä dokumenteissa kuvataan vaalijärjestelmien asentamiseen ja ylläpitoon
 liittyvät työvaiheet.
 
-Dokumentaation kohderyhmänä on vaalien atk-vastuuhenkilöstö. Kuvakusissa ei
+Dokumentaation kohderyhmänä on vaalien atk-vastuuhenkilöstö. Kuvauksissa ei
 selitetä auki kaikkia teknisiä esitietovaatimuksia. Tarkistuslistojen
 ensisijainen tehtävä on varmistaa, että tuotantoympäristön konfiguroinnissa
 muistetaan tehdä kaikki työvaiheet. Lisäksi tarkistuslistat mahdollistavat

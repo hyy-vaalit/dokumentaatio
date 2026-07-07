@@ -1,6 +1,6 @@
 # Muutokset projekteissa
 
-Äänestyspalvelun API ja vaalituloksen laskentapalvelu on auditoitu
+Äänestyspalvelun API (voting-api) ja Vaalitulostin on auditoitu
 syksyllä 2016 Nixun toimesta. Audit on merkitty git-historiaan tageilla:
 voting-api: `2016-audit-1` ja `2016-audit-2`, vaalitulostin: `2016-audit-1`.
 Sen lisäksi jokainen tuotantodeploy saa oman tagin, jolloin git-historiasta

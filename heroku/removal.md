@@ -1,7 +1,7 @@
 # Heroku: Vaalien lopuksi
 
 Vaalien päätyttyä jokaiseen Heroku-palveluun liitetty tietokanta poistetaan.
-Ehdokastietojärjestelmä ja vaalituloksen laskentapalvelu kytketään pois
+Ehdokastiedot ja Vaalitulostin kytketään pois
 käytöstä. Äänestyspalvelu vaalit.hyy.fi voidaan jättää eloon, mutta tällöin
 tietokanta on ensin poistettava ja sen jälkeen luotava tyhjästä uudelleen.
 Äänestyspalvelu näyttää vaalien jälkeen infosivun ja linkin vaalitulokseen.
@@ -10,7 +10,7 @@ tietokanta on ensin poistettava ja sen jälkeen luotava tyhjästä uudelleen.
 ## Heroku
 
 - Poista jokaisen palvelun tietokanta
-  - [ ] `heroku pg:reset DATABASE -a PALVELU`
+  - [ ] `heroku pg:reset DATABASE -a PALVELU`
 
 - Poista kaikki mahdolliset varmuuskopiot, jotka henkilötietoja sisältävistä
   tietokannoista on otettu vaalien aikana.

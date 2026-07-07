@@ -9,7 +9,7 @@ logiviestit eivät sisällä henkilötietoja eikä niistä voi
 jälkikäteenkään muodostaa henkilörekisteriä.
 
 Sen lisäksi, että Herokun palvelut luodaan Europe-alueelle, myös Heroku Add-Ons
--lisäpalvelujen valinnassa on oltavata tarkkana. Esimerkiksi Herokun PG Backups
+-lisäpalvelujen valinnassa on oltava tarkkana. Esimerkiksi Herokun PG Backups
 -varmuuskopiointi ei tarjoa palvelua erikseen Euroopan alueella. Kuitenkin
 [Postgres Continuous
 Protection](https://devcenter.heroku.com/articles/heroku-postgres-data-safety-and-continuous-protection)

@@ -102,7 +102,7 @@ merkintä vaalipöytäkirjaan. Merkinnästä on käytävä ilmi:
 - Käytetään SMS Recoveryssä sen henkilön puhelinnumeroa, jolla on
   koodigeneraattori. Tämä henkilö ei saa tuntea Owner-käyttäjätunnuksen
   salasanaa.
-- SMS Recoveryssä ei saa käyttää sen henkliön puhelinnumeroa, joka tuntee
+- SMS Recoveryssä ei saa käyttää sen henkilön puhelinnumeroa, joka tuntee
   Owner-käyttäjätunnuksen salasanan.
 - Salasanan tunteva henkilö ei saa nähdä koodigeneraatorin asennusvaiheessa
   näkyvää QR-koodia tai tulostettavia Recovery Codes -koodeja.

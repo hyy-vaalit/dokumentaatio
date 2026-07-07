@@ -121,7 +121,7 @@ Suoritetaan palvelun ensimmäinen deploy Herokuun.
 
 - Ota maintenance mode pois päältä.
   - Mene Heroku.com > Settings:
-    - [ ] Maintenance Mode: Off
+    - [ ] Maintenance Mode: Off
   - Komentoriviltä: `heroku maintenance:off -a PALVELU`
 - Poista ylimääräiset pääsyoikeudet.
 - Sulje avatut terminaali-ikkunat.
