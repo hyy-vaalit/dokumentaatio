@@ -30,7 +30,7 @@ kirjoittaminen on tärkeää.
 
 ## Sisällysluettelo
 
-* [Järjestelmien yleiskuvaus](architecture.md)
+* [Arkkitehtuurin yleiskuvaus](architecture.md)
 * [Git-versionhallinta](git/README.md)
 * [Heroku](heroku/README.md)
 * [CSC Haka](haka/README.md)
