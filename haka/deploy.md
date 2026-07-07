@@ -70,7 +70,7 @@ puts cert
 OpenSSL::X509::Certificate.new cert
 ```
 
-Ks myös hakemisto `doc/example_certificates`
+Ks myös voting-apin hakemisto `doc/examples/haka-test`
 
 
 ### Esimerkiksi helsinki.fi:
