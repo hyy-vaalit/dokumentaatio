@@ -1,9 +1,10 @@
 # Heroku
 
 Vaalin backend-palvelut tuotetaan Heroku-pilvipalvelussa siten, että
-henkilötiedot sijaitsevat pelkästään EU-alueella henkilötietolain määrittämässä
-laajudessa. Esimerkiksi palveluun talletettava äänioikeutettujen opiskelijoiden
-tietokanta on henkilörekisteri. Sen sijaan esimerkiksi palvelun generoimat
+henkilötiedot sijaitsevat pelkästään EU-alueella EU:n yleisen
+tietosuoja-asetuksen (GDPR) ja tietosuojalain (1050/2018) määrittämässä
+laajuudessa. Esimerkiksi palveluun talletettava äänioikeutettujen
+opiskelijoiden tietokanta on henkilörekisteri. Sen sijaan esimerkiksi palvelun generoimat
 logiviestit eivät sisällä henkilötietoja eikä niistä voi
 jälkikäteenkään muodostaa henkilörekisteriä.
 
