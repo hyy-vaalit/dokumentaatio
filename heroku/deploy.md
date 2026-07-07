@@ -18,22 +18,22 @@ Palvelut raportoivat virhetilanteet Rollbariin.
 
 - Hanki server side access token. Tämä asetetaan jäljempänä ympäristömuuttujaksi.
 
-- Aseta deploy hook
-  - Mene https://rollbar.com/hyy/voting-api/deploys/
-  - Valitse "Heroku"
-  - Etsi copypastettava komento, esimerkiksi:
-    `heroku addons:create deployhooks:http --url="https://api.rollbar.com/api/1/deploy/?access_token=SEKRIT&environment=production"`
-  - Vaihda parametrin lopusta ympäristön nimi (esim `qa`)
+- Aseta deployjen raportointi Rollbariin. Herokun deployhooks-lisäpalvelu
+  on poistunut; tilalla ovat [Herokun app
+  webhookit](https://devcenter.heroku.com/articles/app-webhooks), joille
+  Rollbar tarjoaa vastaanottimen:
+  - `heroku webhooks:add -i api:release -l notify -u 'https://api.rollbar.com/api/1/webhook/heroku?access_token=SEKRIT&environment=production' -a PALVELU`
+  - Vaihda `environment`-parametriin ympäristön nimi (esim `qa`)
 
 
-## Valmistelut: Loggly
+## Valmistelut: lokit
 
-Palvelut lähettävät login Logglyyn.
-
-- Luodaan Heroku Drain:
-  - Avaa [Logglyn hallintapaneeli](https://hyy.loggly.com/sources/setup/heroku-app-setup)
-  - Etsi copypastettava komento, esimerkiksi:
-    `heroku drains:add https://logs-01.loggly.com/bulk/SEKRIT/tag/heroku -a PALVELU`
+Palvelut kirjoittavat lokinsa STDOUTiin, josta Heroku kerää ne.
+Lokeja luetaan komennolla `heroku logs --tail -a PALVELU`. Heroku
+säilyttää vain lyhyen lokihistorian; jos lokien pidempi säilytys on
+tarpeen, lisää log drain (`heroku drains:add`). Tarkista pystytyksen
+yhteydessä, mitä draineja palveluun on konfiguroitu:
+`heroku drains -a PALVELU`.
 
 
 ## Valmistelut: asennettavan ohjelmistoversion varmistaminen
@@ -57,13 +57,12 @@ muutokset aiempaan turvalliseksi todettuun versioon nähden.
 
 ## Valmistelut: pääsyoikeuksien lisääminen
 
-Pääsyoikeuksiin kytkettävä SSH-avain on aina generoitava uudelleen Dual Control
--session aikana. Tällä varmistutaan, ettei SSH-avain ole kolmannen osapuolen
-hallussa. SSH-avain voi päätyä kolmannen osapuolen haltuun esimerkiksi siten,
-että toinen ATK-vastaava on tietoisesti luovuttanut avaimen eteenpäin Dual
-Control -session ulkopuolella.
+Heroku CLI:n pääsyoikeudet (API-avain) luodaan aina uudelleen Dual
+Control -session aikana ja mitätöidään session päätteeksi. Tällä
+varmistutaan, ettei pääsyavain ole kolmannen osapuolen hallussa
+sessioiden välillä.
 
-Checklist: [Uuden SSH-avaimen luominen](ssh-key.md)
+Checklist: [Pääsyoikeudet Heroku CLI:lle](cli-access.md)
 
 
 

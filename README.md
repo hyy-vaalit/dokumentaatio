@@ -39,12 +39,11 @@ kirjoittaminen on tärkeää.
 
 ## Muokkaajalle ohjeeksi:
 
-* Asenna editoriisi Markdown-plugin, jotta näet kirjoittaessasi live-previewin.
-  - Atom: markdown-preview
+* Käytä editorissasi Markdown-previewiä, jotta näet kirjoittaessasi
+  lopputuloksen (esim. VS Code: cmd-shift-V).
 
 * Säilytä 80-merkin rivipituus.
-  - Tällöin Markdown säilyy luettavamampa myös kirjoitustilassa.
+  - Tällöin Markdown säilyy luettavampana myös kirjoitustilassa.
   - Käytä editorissa joko
-    a) pakotettua rivipitutta tai
-    b) automaattista rivitystoimintoa (justify).
-  - Atom, justify text: 1) select text 2) cmd-alt-q
+    a) pakotettua rivipituutta tai
+    b) automaattista rivitystoimintoa (justify/reflow).
