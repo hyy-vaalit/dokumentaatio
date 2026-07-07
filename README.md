@@ -34,6 +34,7 @@ kirjoittaminen on tärkeää.
 * [Heroku](heroku/README.md)
 * [CSC Haka](haka/README.md)
 * [Amazon AWS](aws/README.md)
+* [Ehdokastiedot](ehdokastiedot/README.md)
 * [Vaalit](elections/README.md)
 
 
