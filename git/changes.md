@@ -1,10 +1,10 @@
 # Muutokset projekteissa
 
 Äänestyspalvelun API ja vaalituloksen laskentapalvelu on auditoitu
-syksyllä 2016 Nixun toimesta. Audit on merkitty git historiaan tagilla `X`
-(#TODO päivitä taginnimi tähän). Sen lisäksi jokainen tuotantodeploy
-saa oman tagin, jolloin git-historiasta voi seurata, mikä kohta
-historiaa on deployattu.
+syksyllä 2016 Nixun toimesta. Audit on merkitty git-historiaan tageilla:
+voting-api: `2016-audit-1` ja `2016-audit-2`, vaalitulostin: `2016-audit-1`.
+Sen lisäksi jokainen tuotantodeploy saa oman tagin, jolloin git-historiasta
+voi seurata, mikä kohta historiaa on deployattu.
 
 Palveluun tehtävät muutokset vertaisarvioidaan vertaamalla edellistä
 luotettavaa tilaa uuteen tilaan. Muutokset git-historiasta saa näkyviin
@@ -47,7 +47,9 @@ v193  Set SAML_IDP_SSO_TARGET_URL, SAML_IDP_ENTITY_ID config vars               
 
 Tässä release `v195` ympäristössä `production` on deployattu git-historian
 kohdasta `f1514ef`. Lisäksi deploy-skripti `bin/deploy` on myös luonut
-tagin `production-195`. Deployn kohteena olevaa versiota voi tutkia esimerkiksi
+tagin `production-195`. Tagin muoto on `<remote-nimi>-<versio>`, eli se
+riippuu paikallisen git-remoten nimestä: esimerkiksi remote `prod` tuottaa
+tageja kuten `prod-123`. Deployn kohteena olevaa versiota voi tutkia esimerkiksi
 seuraavasti:
 - `git log f1514ef`
 - `git diff --stat f1514ef..master`

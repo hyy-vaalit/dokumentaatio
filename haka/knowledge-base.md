@@ -86,8 +86,8 @@ https://wiki.eduuni.fi/display/CSCHAKA/Metadata
   * Testipalvelun sertifikaatti on todennäköisesti päivittynyt edellisten
     vaalien jälkeen. Sertifikaatti on attribuutin `X509Certificate` arvo
     Kohdassa `<EntityDescriptor .. entityID="https://testidp.funet.fi/idp/shibboleth">`
-  * Kopioi Hakan testipalvelun päivitetyt sertifikaatit hakemistoon
-    voting-apin hakemistoon `doc/example_certificates`.
+  * Kopioi Hakan testipalvelun päivitetyt sertifikaatit voting-apin
+    hakemistoon `doc/examples/haka-test`.
 
 * Vaalijärjestelmän Hakaan rekisteröity testi-SP:
   * localhost.enemy.fi on 127.0.0.1, Hakaan ei voi rekisteröidä pelkkää `localhost`
