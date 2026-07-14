@@ -1,5 +1,26 @@
 # Ennen äänestyksen alkamista
 
+## Ehdokasasettelu
+
+Ehdokasasettelu tehdään ehdokastiedot-palvelussa ennen äänestystä:
+ks. [Ehdokastiedot](../ehdokastiedot/README.md).
+
+## Ehdokkaiden vieminen järjestelmiin
+
+Ehdokkaat, vaaliliitot ja vaalirenkaat viedään ehdokastiedot-palvelun
+CSV-exporteista sekä Vaalitulostimeen että voting-apiin:
+
+- Vaalitulostin: `rake db:seed:edari`
+- voting-api: `bin/seed-edari` (paikallisesti `bin/seed-edari local`)
+
+## Äänioikeusrekisterin tuominen
+
+Äänioikeutetut tuodaan yliopistolta saatavasta aineistosta voting-apiin.
+Importereita on eri tiedostomuodoille (CSV eri vuosien formaateissa,
+teksti, XML). Äänestäjät ja äänioikeudet syötetään rake-taskeilla
+(`db:seed:edari:voters_and_voting_rights`, ks. voting-apin README) tai
+`bin/seed-edari`-skriptillä.
+
 ## Todetaan vaaliuurna tyhjäksi
 
 Keskusvaalilautakunnan puheenjohtaja avaa
